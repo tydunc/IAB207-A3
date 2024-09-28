@@ -22,24 +22,26 @@ def create_app():
     Bootstrap5(app)
     
     # initialise the login manager
-    login_manager = LoginManager()
+    #login_manager = LoginManager()
     
     # set the name of the login function that lets user login
     # in our case it is auth.login (blueprintname.viewfunction name)
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
+    #login_manager.login_view = 'auth.login'
+    #login_manager.init_app(app)
 
     # create a user loader function takes userid and returns User
     # Importing inside the create_app function avoids circular references
-    from .models import User
-    @login_manager.user_loader
-    def load_user(user_id):
-       return db.session.scalar(db.select(User).where(User.id==user_id))
+    #from .models import User
+    #@login_manager.user_loader
+    #def load_user(user_id):
+    #   return db.session.scalar(db.select(User).where(User.id==user_id))
 
     from . import views
     app.register_blueprint(views.main_bp)
+    from . import events
+    app.register_blueprint(events.event_bp)
 
-    from . import auth
-    app.register_blueprint(auth.auth_bp)
+    #from . import auth
+    #app.register_blueprint(auth.auth_bp)
     
     return app

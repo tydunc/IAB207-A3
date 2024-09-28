@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1 class="header-h1">Good times are</h1>
+    <h1 class="header-h1">Waiting</h1>
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <h3 class="filter">Show me 
+        <select class="form-select" aria-label=".form-select">
+            <option selected>Everything</option>
+            <option value="1">Themed parties</option>
+            <option value="2">Raves</option>
+            <option value="3">DJ Sets</option>
+        </select>
+        for
+        <select class="form-select" aria-label="">
+            <option selected>All ages</option>
+            <option value="1">Under 18s</option>                        
+            <option value="2">Over 18s</option>
+        </select>
+        in
+        <select class="form-select" aria-label="">
+            <option selected>Everywhere</option>
+            <option value="1">Brisbane</option>
+            <option value="2">Sydney</option>                        
+            <option value="3">Gold Coast</option>
+        </select>
+    </h3>
+</div>
+
+{% endblock %}
+
+{% block results %}
+
+<div class="container">
+    <h3><br>RESULTS</h3>
+
+    <div class="row row-spacing">
+
+        <div class="col-md-3">
+            <p class="card-date">Friday</p>
+            <div class="card">
+                <a href="events/1">
+                    <img src="/static/img/pexels-jay-ybarra-1587808679-27383363.jpg" class="card-img-top" alt="...">
+                    <span class="price-label">FREE</span>      
+                </a>
+                
+                <div class="card-body">
+                    <h5>Event title</h5>
+                    <p class="card-text">Lipsum nightclub</p>
+                    <span class="badge ev-rave">RAVE</span>
+                    <span class="badge age-un18">UNDER 18s</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

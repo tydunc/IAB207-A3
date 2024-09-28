@@ -1,0 +1,746 @@
+@font-face {
+    font-family: "Punkboy";
+    src: url(fonts/punkboy_tbs_bold.ttf) format("truetype");
+}
+
+:root {
+    --main-blue: #0083ff;
+    --main-purple: #7900ff;
+    --main-pink: #ee00ab;
+    --main-green: #00eeb1;
+    --main-yellow: #f7e204;
+    --main-red: #fb0a49;
+    --main-orange: #f7a104;
+
+    --purple-2: #4b3bff;
+
+    --main-grey: #cacaca;
+}
+
+html, body {
+    font-family: "Lexend", sans-serif;
+    font-weight: 400;
+    font-size: 1.2em;
+    min-height: 100vh;
+}
+
+.bg-1 {
+    background: var(--bs-body-color);
+    color: #F6F6F6;
+}
+.bg-1 .navbar a {
+    color: #f6f6f6 !important;
+}
+
+.navbar {
+    text-align: center;
+    padding: 1rem;
+}
+.navbar a, .navbar button {
+    transition: 200ms ease-in-out;
+    color: #1d1d1d;
+    text-decoration: none;
+}
+.navbar button, footer button {
+    background: none;
+    border: none;
+    color: inherit;
+}
+footer a, footer button {
+    transition: 200ms ease-in-out;
+}
+.navbar a:hover, footer a:hover, .navbar button:hover, footer button:hover {
+    color: #76849C !important;
+}
+
+.navbar-toggler {
+    color: black;
+    padding: 0;
+    border: 0;
+    font-size: 1.2em;
+    transition: 200ms;
+}
+.navbar-toggler[aria-expanded="true"] {
+    transform:rotate(90deg);
+}
+.bg-1 .navbar-toggler {
+    color: white;
+}
+.navbar-togler[aria-expanded="true"]{
+    rotate: 90deg;
+}
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.logo {
+    font-family: "Punkboy";
+    margin: 0;
+    text-align: center;
+}
+
+.jumbotron {
+    margin: 0 5%;
+    border-radius: 4.3em;
+    background: url(../img/pexels-maumascaro-788824.jpg) center center;
+    background-size: cover;
+    padding: 0 2rem 4rem 0rem;
+    height: 60vh;
+}
+
+h1, h2, h3 {
+    font-family: "Lexend Exa", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+.header-h1 {
+    background: var(--main-purple);
+    color: white;
+    text-transform: uppercase;
+    width: fit-content;
+    margin: 0;
+    padding: 1em;
+}
+.header-h1:first-of-type {
+    border-radius: 2em 2em 2em 0;
+}
+.header-h1:last-of-type {
+    margin: -1.7em 0 0;
+    border-radius: 2em;
+    margin-bottom: 1em;
+}
+
+footer {
+    background: var(--bs-body-color);
+    min-height: 12em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+footer ul {
+    text-align: left;
+}
+footer .list-group-item {
+    background: none;
+    padding: 0.2em;
+}
+footer svg {
+    height: 1.5em !important;
+}
+footer a, footer button {
+    color: white;
+    text-decoration: none;
+    padding: 0;
+}
+footer .border-end, footer .border-start {
+    border-color: white !important;
+}
+
+
+.filter {
+    font-family: "Lexend Exa", sans-serif;
+    font-weight: 600; 
+    padding: 1.4em;
+    color: var(--main-green);
+    text-transform: uppercase;
+    width: auto;
+}
+.create .filter {
+    width: 100%;
+}
+.filter .form-select {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+    font-weight: 600;
+    color: #f6f6f6;
+    padding-right: 1em;
+
+    /* Fixing dumb Boostrap styles */
+    width: auto;
+    font-size: inherit;
+    display: inline-block;
+    
+    /* This is just to make the arrow white */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.form-select option {
+    background: #222222;
+    border: none;
+    color: #f6f6f6;
+    font-size: 0.8em;
+}
+
+.col-md-3 {
+    padding: 0.2em;
+}
+
+.upld-btn {
+    background: var(--main-grey);
+    width: 7em;
+    height: 7em;
+    
+    font-family: "Lexend Exa", system-ui;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 2em;
+    line-height: 1em;
+    border-radius: 0;
+}
+
+.calendar tbody {
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 10px;
+}
+.calendar button {
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background: var(--main-grey);
+}
+.calendar button:focus {
+    background: #001753;
+    color: #f6f6f6;
+}
+.calendar select {
+    width: 100%;
+    height: 100%;
+    background: var(--main-grey);
+    border: none;
+    border-radius: 1em;
+    padding: 3px;
+    padding-left: 5px;
+}
+.calendar td {
+    width: 2em;
+    height: 2em;
+    padding: 2px;
+}
+
+ul {
+    margin-bottom: 0;
+}
+
+.create .form-control {
+    border: none;
+    background: var(--main-grey);
+    margin-bottom: 10px;
+}
+.form-control-lg {
+    font-family: "Lexend Exa", system-ui;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+.create button {
+    transition: 200ms ease-in-out;
+}
+.create button:hover {
+    scale: 105%;
+    background: #b9b9b9;
+}
+.create .filter {
+    background: #1d1d1d;
+    margin: 1em 0;
+    border-radius: 1em;
+    color: var(--main-grey);
+    padding: 0.7em 1em;
+}
+.create .filter select {
+    color: var(--purple-2);
+    
+    /* Wish there was an easier way to change the arrow colour to white, silly boostrap */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%234b3bff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.social {
+    list-style-type: none;
+    padding: 0;
+}
+
+.social .btn {
+    background: var(--main-grey);
+    width: 100%;
+    margin: 0.2em;
+    border-radius: 0.5em;
+    text-align: left;
+}
+
+.btn-submit {
+    width: auto;
+    background: var(--main-grey);
+    font-family: 'Lexend Exa';
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 0;
+    margin: 2em 1em;
+    padding: 0.7em 1.7em;
+    font-size: 1.6em;
+}
+
+.social svg {
+    font-size: 1.6em;
+    width: 2em;
+}
+
+.list-group-flush .list-group-item {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+.card {
+    box-shadow: 0 0.5em 1em #cacaca;
+    border: none;
+    border-radius: 0px;
+    overflow: clip;
+    border-radius: 0;
+}
+.card img {
+    transition: 200ms ease-in-out;
+}
+.card .price-label {
+    transition: 200ms ease-in-out;
+}
+.card a:hover img {
+    scale: 1.1;
+    opacity: 0.7;
+}
+.card a:hover .price-label {
+    rotate: -10deg;
+    scale: 1.1;
+}
+.card h5, .card p {
+    margin: 0;
+
+}
+.badge {
+    display: inline-block;
+    border-radius: 0;
+    font-weight: 500;
+
+}
+.card .badge {
+    min-width: 40%;
+}
+.price-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    width: 4em;
+    height: 4em;
+    color: white;
+    position: absolute;
+    margin: 4px;
+    border-radius: 100%;
+    top: 0;
+}
+
+.card-date {
+    margin: 0.1em;;
+    padding-top: 0.5em;
+    font-style: italic;
+}
+
+.ev-rave { background: var(--main-blue)}
+.ev-party { background: var(--main-purple)}
+.ev-dj { background: var(--main-pink)}
+.ev-other { background: var(--main-green)}
+
+.age-un18 { background: var(--main-yellow)}
+.age-ov18 { background: var(--main-red)}
+.age-all { background: var(--main-orange)}
+
+.create .carousel {
+    height: 12rem;
+    width: 12rem;
+}
+.event .carousel {
+    width: 50%;
+    height: auto;
+}
+
+.event {
+    margin-top: 1em;
+}
+.event .badge {
+    min-width: 8em;
+}
+.event p, h1 {
+    margin: 0;
+}
+
+.bg-event {
+    height: 50vh;
+    width: auto;
+    margin: 1em 0 3em 0;
+    background-size: cover;
+    background-position: 100% 100%;
+}
+.icons {
+    height: 4em;
+}
+.border-top, .border-bottom, .border-end, .border-start {
+    border-color: black !important;
+    border-width: 3px !important;
+}
+.event h6 {
+    font-weight: 600;
+    margin-bottom: 1em;
+}
+
+.row-spacing {
+    margin: 3em 0;
+}
+
+.event .col-lg-8, .event .col-lg-4 {
+    padding: 0 2%;
+}
+
+.img-thumbnail {
+    border: 3px black solid;
+    padding: 0;
+    border-radius: 0;
+    margin-right: 1em;
+    height: fit-content !important;
+    width: 40%;
+}
+
+.spacing {
+    margin: 1.5em 0;
+}
+
+.btn-ticket {
+    font-size: 1.2rem;
+    display: flex;
+    padding: 0;
+    justify-content: space-between;
+    background: black;
+    width: 15em;
+    margin: 0.2em 0.5em;
+    color: white;
+    height: 3em;
+    border-radius: 10px;
+    padding-left: 1em;
+    align-items: center;
+}
+.btn-ticket .btn {
+    font-size: 1.2rem;
+    background: linear-gradient(to right, var(--main-grey) 0%, var(--main-grey) 50%, var(--purple-2) 50%, var(--main-purple) 100%);
+    background-size: 210% 100%;
+    background-position: 1%;
+    width: 11em;
+    padding: 0 0.5em;
+    height: 2.5em;
+    margin-bottom: 0.5em;
+    transition: 200ms ease-in-out;
+}
+.btn-ticket button:hover {
+    background-position: 99%;
+}
+
+.btn-ticket.disabled {
+    background: #777;
+}
+.btn-ticket.disabled .btn {
+    cursor: not-allowed;
+}
+.btn-ticket.disabled .btn:hover {
+    background-position: 1%;
+    color: black;
+}
+
+.modal {
+    --bs-modal-width: 1100px;
+    background: rgba(256, 256, 256, 0.5)
+}
+.modal-header {
+    align-items: baseline;
+    border: none;
+}
+.modal-header h1, .modal-header p {
+    margin: 0 10px;
+    line-height: 1.1em;
+}
+.modal-header .btn-close {
+    --bs-btn-close-color: white;
+    --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e")
+}
+.modal-content {
+    background-color: #1e1e1e;
+    color: white;
+}
+.aImg img {
+    width: 100%;
+    height: 8em;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: 200ms ease-in-out
+}
+.aImg:hover img {
+    opacity: 1;
+}
+.eventsList h4, .eventsList p, .eventsList span {
+    margin: 3px 0;
+}
+.modalEvent {
+    margin: 1em 0;
+}
+.modalEvent::after {
+    content: "";
+    background: #505050;
+    height: 2px;
+    width: 60%;
+    margin: 1em 20% 0 20%;
+}
+.btn-edit {
+    background: white;
+    margin-top: 1em;
+    font-weight: bold;
+    display: block;
+    margin: 0;
+}
+.btn-edit:hover {
+    color: black;
+    background: var(--main-green);
+}
+#close, #edit {
+    float: right;
+    color: var(--main-red);
+    background: none;
+    border: 0;
+    position: absolute;
+    display: flex;
+    align-items: end;
+    width: 89%;
+    flex-direction: column;
+    width: 89%;
+}
+#close:hover::after {
+    content: 'Remove event';
+    display: block;
+}
+#bookingID {
+    font-size: 0.7rem;
+    font-style: italic;
+}
+
+.btn-purchase {
+    flex-direction: column;
+    height: auto;
+    padding-bottom: 1em;
+    width: 100%;
+    margin: 0.5em 0;
+}
+.btn-purchase .btn:hover {
+    background-position: 1%;
+    color: black;
+}
+.btn-purchase .btn {
+    width: calc(100% - 3em);
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 1em;
+}
+.btn-purchase .d-flex {
+    width: 100%;
+}
+.btn-primary {
+    margin: 2em 0;
+    font-weight: bold;
+}
+.btn-review {
+    background: var(--main-orange);
+    color: black;
+    padding: 0.5em 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.btn-review:hover {
+    background: #1a1a1a;
+    color: var(--main-grey);
+}
+.btn-review[aria-expanded="false"]::after {
+    content: "+";
+}
+.btn-review[aria-expanded="true"]::after {
+    content: "-";
+}
+
+#addReview {
+    padding: 2em;
+    border-radius: 2em;
+    box-shadow: 0 0.5em 1em #9b9b9b;
+    margin: 5%;
+    width: 90%;
+}
+#addReview .starSelect, #addReview textarea {
+    margin-bottom: 1em;
+}
+.starSelect input {
+    opacity: 0;
+    width: 1em;
+}
+.starSelect label {
+    margin-left: -1em;
+    opacity: 0.9;
+}
+.starSelect input:checked ~ label {
+    opacity: 0.3;
+}
+.starSelect input:checked + label {
+    opacity: 1;
+}
+
+#counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em;
+}
+#counter button {
+    width: 1.7em;
+    height: 1.7em;
+    padding: 0;
+    border-radius: 1em;
+    border: none;
+    z-index: 1;
+}
+#counter span {
+    height: 1.7em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.5em;
+    background: var(--main-grey);
+    color: black;
+    margin: 0 -0.85em;
+}
+
+.summary {
+    height: 100%;
+    background: #777;
+    padding: 1em;
+    border-radius: 10px;
+    display: grid;
+}
+.btn-checkout {
+    width: 100%;
+    background: white;
+    box-shadow: #444 0 4px;
+}
+.btn-checkout:hover {
+    background: #cacaca;
+    color: black;
+}
+
+.tkt-total {
+    background: black;
+    min-height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1em 0 0;
+    border-radius: 10px;
+    margin: 1em 0;
+}
+.tkt-admish {
+    background: #cacaca;
+    min-height: 3em;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 3em);
+    padding: 0 1em;
+    color: black;
+    border-radius: 10px;
+}
+
+.reviews {
+    margin-top: 1em;
+    columns: 300px auto;
+}
+.fa-star, .fa-star-half-stroke {
+    color: var(--main-purple);
+}
+
+.pp {
+    height: 2.5em;
+    width: 2.5em;
+    object-fit: cover;
+    border-radius: 100%;
+    border: #1b1b1b 2px solid;
+    margin: 0.5em;
+    margin-left: 0;
+}
+
+.reviews .card-header, .reviews .card-footer {
+    border: none;
+    background: none;
+}
+.reviews .card-body {
+    background: white;
+    font-style: italic;
+    border-radius: 10px 10px 10px 2em;
+    margin: 0 0.5em;
+}
+.reviews .card {
+    border-radius: 1em;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 1em;
+}
+
+/* Responsive goodness */
+
+@media (max-width: 576px) {
+    .btn-purchase .description {
+        flex-direction: column;
+    }
+    .col-md-3 {
+        padding: 1em;
+    }
+    .tkt-admish {
+        display: block;
+    }
+}
+@media (max-width: 768px) {
+    .border-end, .border-start {
+        border-width: 0 !important;
+    }
+    footer {
+        padding: 1em;
+    }
+    footer ul {
+        text-align: center;
+        width: 100%;
+    }
+
+    .modalEvent {
+        margin-top: 2.5em;
+    }
+    #close, #edit {
+        margin-top: -2em;
+        align-items: center;
+    }
+}
+@media (max-width: 992px) {
+    .upld-btn {
+        font-size: 1.5em;
+    }
+    .event .col-lg-4 {
+        margin-top: 2em;
+        padding-top: 2em;
+        border-top: 3px solid black;
+    }
+    .event .col-lg-8 {
+        border: 0 !important;
+    }
+}
