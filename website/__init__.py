@@ -1,47 +1,51 @@
-# import flask - from 'package' import 'Class'
-from flask import Flask 
+from flask import Flask
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
+# Initialize the database instance
 db = SQLAlchemy()
 
-# create a function that creates a web application
-# a web server will run this web application
+# Create a function that creates a web application
 def create_app():
   
-    app = Flask(__name__)  # this is the name of the module/package that is calling this app
-    # Should be set to false in a production environment
+    app = Flask(__name__)  # This is the name of the module/package that is calling this app
+    
+    # Set the secret key and debug mode (remember to turn off debug mode in production)
     app.debug = True
     app.secret_key = 'somesecretkey'
-    # set the app configuration data 
+    
+    # Set the app configuration for the SQLite database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sitedata.sqlite'
-    # initialise db with flask app
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To suppress SQLAlchemy warning
+    
+    # Initialize db with Flask app
     db.init_app(app)
-
+    
+    # Initialize Bootstrap5 for styling
     Bootstrap5(app)
     
-    # initialise the login manager
-    #login_manager = LoginManager()
+    # Initialize the login manager (commented out if not needed right now)
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
     
-    # set the name of the login function that lets user login
-    # in our case it is auth.login (blueprintname.viewfunction name)
-    #login_manager.login_view = 'auth.login'
-    #login_manager.init_app(app)
-
-    # create a user loader function takes userid and returns User
-    # Importing inside the create_app function avoids circular references
-    #from .models import User
-    #@login_manager.user_loader
-    #def load_user(user_id):
-    #   return db.session.scalar(db.select(User).where(User.id==user_id))
-
+    # Define a user loader function that takes a user ID and returns a User object
+    from .models import User
+    @login_manager.user_loader
+    def load_user(user_id):
+        return db.session.scalar(db.select(User).where(User.id == user_id))
+    
+    # Register blueprints for the views and events modules
     from . import views
     app.register_blueprint(views.main_bp)
+    
     from . import events
     app.register_blueprint(events.event_bp)
-
-    #from . import auth
-    #app.register_blueprint(auth.auth_bp)
     
+    # Register blueprint for authentication (uncomment if needed)
+    from . import auth
+    app.register_blueprint(auth.auth_bp)
+    
+    # Return the app instance
     return app
