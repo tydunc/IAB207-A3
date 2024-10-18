@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 # Configure the SQLite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_booking.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///comments.db'
 
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
@@ -25,7 +26,8 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.first_name} {self.surname}>'
-    
+
+#define the bookings table    
 class Bookings(db.Model):
     __tablename__ = 'bookings'
 
@@ -33,8 +35,6 @@ class Bookings(db.Model):
     price = db.Column(db.Float(2), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     booked_date = db.Column(db.DateTime, default=datetime.now())
-
-    #foreign keys
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
@@ -46,6 +46,20 @@ class Events(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)
+
+#comments table
+class Comments(db.Model):
+    __tablename__ = 'comments'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    comment_text = db.Column(db.Text, nullable=False)
+    comment_date = db.Column(db.DateTime, default=datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+
+    def __repr__(self):
+        return f"<Comment {self.comment_text[:20]} by User {self.user_id}>"
+
 
 # Create the database and tables immediately when app starts
 with app.app_context():

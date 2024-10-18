@@ -7,7 +7,7 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 
 # Import userdata (which likely contains user models or related functions)
-from userdata import User  # Make sure the path is correct
+from userdata import User, Comments
 
 # Create a function that creates a web application
 def create_app():
@@ -19,9 +19,9 @@ def create_app():
     app.secret_key = 'somesecretkey'
     
     # Set the app configuration for the SQLite database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sitedata.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_booking.db'  # Use one database
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To suppress SQLAlchemy warning
-    
+     
     # Initialize db with Flask app
     db.init_app(app)
     
