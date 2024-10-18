@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 # Create Flask app
 app = Flask(__name__)
@@ -24,6 +25,27 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.first_name} {self.surname}>'
+    
+class Bookings(db.Model):
+    __tablename__ = 'bookings'
+
+    id = db.Column(db.Integer, primary_key=True)
+    price = db.Column(db.Float(2), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    booked_date = db.Column(db.DateTime, default=datetime.now())
+
+    #foreign keys
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return f"Booking: {self.quantity} tickets booked at {self.booked_date}"
+    
+#I just created this events class so the foreign keys with booking would work
+class Events(db.Model):
+    __tablename__ = 'events'
+
+    id = db.Column(db.Integer, primary_key=True)
 
 # Create the database and tables immediately when app starts
 with app.app_context():
