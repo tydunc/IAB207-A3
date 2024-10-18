@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+        <div class="container">
+            <div class="">
+                <div class="d-flex flex-column">
+                    <h1 class="modal-title" id="exampleModalLabel">My saved events</h1>
+                </div>
+            </div>
+            <div class="">
+
+                <div class="row modalEvent">
+                    <button id="close"><i class="fa-regular fa-circle-xmark"></i></button>
+                    <div class="col-md-4">
+                        <a href="events/1" class="aImg">
+                            <img src="/static/img/pexels-jay-ybarra-1587808679-27383363.jpg" />
+                        </a>
+                    </div>
+                    <div class="col-md-5 eventsList">
+                        <span id="bookingID">Booking #10748763987 saved at 23:19 on 1/1/24</span>
+                        <h4>Event title</h4>
+                        <p>Lipsum Nightclub</p>
+                        <span class="badge ev-rave">RAVE</span>
+                        <span class="badge age-ov18">OVER 18s</span>
+                    </div>
+                </div>
+
+                <div class="row modalEvent">
+                    <span id="edit">
+                        <a class="btn btn-edit" href="/events/create">My event - edit</a>
+                    </span>
+                    <div class="col-md-4">
+                        <a href="events/1" class="aImg">
+                            <img src="/static/img/pexels-maumascaro-788824.jpg" />
+                        </a>
+                    </div>
+                    <div class="col-md-5 eventsList">
+                        <span id="bookingID">Booking #10748763987 saved at 23:19 on 1/1/24</span>
+                        <h4>Event title</h4>
+                        <p>Lipsum Nightclub</p>
+                        <span class="badge ev-rave">RAVE</span>
+                        <span class="badge age-ov18">OVER 18s</span>
+                    </div>
+                </div>
+
+                <div class="row modalEvent">
+                    <button id="close"><i class="fa-regular fa-circle-xmark"></i></button>
+                    <div class="col-md-4">
+                        <a href="events/1" class="aImg">
+                            <img src="/static/img/pexels-jay-ybarra-1587808679-27383363.jpg" />
+                        </a>
+                    </div>
+                    <div class="col-md-5 eventsList">
+                        <span id="bookingID">Booking #10748763987 saved at 23:19 on 1/1/24</span>
+                        <h4>Event title</h4>
+                        <p>Lipsum Nightclub</p>
+                        <span class="badge ev-rave">RAVE</span>
+                        <span class="badge age-ov18">OVER 18s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+{% endblock %}

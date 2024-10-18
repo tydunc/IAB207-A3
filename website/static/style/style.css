@@ -698,6 +698,17 @@ ul {
     margin-bottom: 1em;
 }
 
+.login .btn {
+    background: var(--main-purple);
+    border: none;
+    font-size: 1.2em;
+    margin: 0.5em 0;
+    padding: 0.2em 1em;
+    font-family: "Lexend Exa", sans-serif;
+}
+.login h1 {
+    margin: 1em 0;
+}
 /* Responsive goodness */
 
 @media (max-width: 576px) {
