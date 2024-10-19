@@ -184,6 +184,9 @@ footer .border-end, footer .border-start {
     width: 7em;
     height: 7em;
     
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-family: "Lexend Exa", system-ui;
     font-weight: 700;
     text-transform: uppercase;
@@ -197,14 +200,21 @@ footer .border-end, footer .border-start {
     table-layout: fixed;
     margin-bottom: 10px;
 }
-.calendar button {
+.calendar input {
+    position: absolute;
+    height: 2em;
+    width: 2em;
+    opacity: 0;
+}
+.calendar label {
     border: none;
     border-radius: 5px;
-    width: 100%;
-    height: 100%;
+    padding: 0.5em 0;
+    text-align: center;
+    width: 2.2em;
     background: var(--main-grey);
 }
-.calendar button:focus {
+.calendar input:checked ~ label {
     background: #001753;
     color: #f6f6f6;
 }
@@ -238,10 +248,10 @@ ul {
     font-weight: 700;
     font-size: 1.2em;
 }
-.create button {
+.create .upld-btn {
     transition: 200ms ease-in-out;
 }
-.create button:hover {
+.create .upld-btn:hover {
     scale: 105%;
     background: #b9b9b9;
 }

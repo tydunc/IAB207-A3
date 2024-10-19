@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Event
+from .forms import CreateEventForm
 
 event_bp = Blueprint('event', __name__, url_prefix='/events')
 
@@ -10,7 +11,8 @@ def show(id):
 
 @event_bp.route('/create')
 def create():
-  return render_template('events/create.html')
+  create = CreateEventForm()
+  return render_template('events/create.html', form=create)
 
 def get_event():
   # creating the description of Brazil
