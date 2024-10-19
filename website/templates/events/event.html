@@ -23,37 +23,6 @@
                         <p>{{event.description}}
                             <br><br>
                         </p>
-
-                        <div class="d-flex">
-                            <h3>Outfit inspo</h3>
-                        </div>
-                        
-                        <div id="carouselExampleIndicators" class="carousel slide">
-                            <div class="carousel-indicators">
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                <img src="/static/img/placeholder.jpg" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="/static/img/placeholder.jpg" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="/static/img/placeholder.jpg" class="d-block w-100" alt="...">
-                              </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                            </button>
-                          </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="row">
@@ -71,27 +40,24 @@
                         <div class="border-top spacing"></div>
                         <div class="row tickets">
                             <h3>TICKETS</h3>
-                            <span class="btn-ticket">
-                                $30
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#purchasePopup">
-                                    <span class="float-start">Standard</span>
-                                    <span class="float-end">45 left</span>
-                                </button>
-                            </span>
-                            <span class="btn-ticket">
-                                $40
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#purchasePopup">
-                                    <span class="float-start">Premium</span>
-                                    <span class="float-end">25 left</span>
-                                </button>
-                            </span>
-                            <span class="btn-ticket disabled">
-                                $60
-                                <button type="button" class="btn">
-                                    <span class="float-start">VIP</span>
-                                    <span class="float-end">SOLD OUT</span>
-                                </button>
-                            </span>
+                            {% if current_user.is_authenticated %}
+                                <span class="btn-ticket">
+                                    $30
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#purchasePopup">
+                                        <span class="float-start">Tickets</span>
+                                        <span class="float-end">45 left</span>
+                                    </button>
+                                </span>
+                            {% else %}
+                                <span class="btn-ticket disabled">
+                                    $30
+                                    <button type="button" class="btn">
+                                        <span class="float-start">Tickets</span>
+                                        <span class="float-end">45 left</span>
+                                    </button>
+                                </span>
+                                <p>Please login to purchase tickets</p>
+                            {% endif %}
                         </div>
   
                         <!-- Modal popup -->
@@ -126,37 +92,6 @@
                                                     </div>
                                                 </span>
 
-                                                <span class="btn-ticket btn-purchase">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        $40
-                                                        <span class="btn">
-                                                            <span class="float-start">Premium Admission</span>
-                                                            <span class="float-end">45 left</span>
-                                                        </span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <p>Includes life size ronald mcdonald statue, $20 drink voucher</p>
-                                                        <div id="counter">
-                                                            <button onclick="minus('premium', 40)">-</button>
-                                                            <span id="premium">0</span>
-                                                            <button onclick="add('premium', 40)">+</button>    
-                                                        </div>
-                                                    </div>
-                                                </span>
-                                                
-                                                <span class="btn-ticket disabled btn-purchase">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        $60
-                                                        <span class="btn">
-                                                            <span class="float-start">VIP Admission</span>
-                                                            <span class="float-end">SOLD OUT</span>
-                                                        </span>
-                                                    </div>
-                                                    <div class="d-flex description">
-                                                        <p>VIP EXPERIENCE - Handshake with Ronald McDonald</p>
-                                                    </div>
-                                                </span>
-
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="summary">
@@ -168,13 +103,6 @@
                                                                 <span id="count">2</span> x Standard Admission
                                                             </span>
                                                             <span id="price">$60</span>
-                                                        </span>
-
-                                                        <span class="tkt-total" id="premiumTotal" style="display: none">
-                                                            <span class="tkt-admish">
-                                                                <span id="count"></span> x Premium Admission
-                                                            </span>
-                                                            <span id="price"></span>
                                                         </span>
                                                     </div>
                                                     
@@ -239,7 +167,7 @@
                         
                             <div class="card">
                                 <div class="card-header">
-
+                                    
                                     <!-- Review stars -->
                                     <!-- Solid is filled in, regular is just the outline-->
                                     <p>
@@ -252,16 +180,14 @@
                                 </div>
                                 <div class="card-body">
                                     <p>“This event was spectacular, amazing, the best, incredible and just all around fantastical”</p>
+                                    <h5>John Johnson</h5>
                                 </div>
                                 <div class="card-footer d-flex align-items-center">
-                                    <img class="pp" src="/static/img/memoji.jpg">
                                     <div class="d-flex flex-column">
-                                        <h5>John Johnson</h5>
-                                        <p>95 other reviews</p>
+                                        <p>11/11/2011, 11:11pm</p>
                                     </div>
                                 </div>    
                             </div>
-
                     </div>
                 </div>
             </div>
