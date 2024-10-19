@@ -1,18 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_login import UserMixin
 
 # Create Flask app
 app = Flask(__name__)
 
 # Configure the SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///nexus.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_booking.db'
 
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
 
 # Define the User model (table)
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
