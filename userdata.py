@@ -46,6 +46,14 @@ class Events(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
+    desc = db.Column(db.String(200), nullable=False)
+    imaage = db.Column(db.String(100), nullable=False) #Store the image file path
+    date = db.Column(db.Integer, nullable=False)       #Store the selected date of the event
+    month = db.Column(db.String(3), nullable=False)    #Store the selected month ('Jan','Feb')
+    nightclub = db.Column(db.String(50), nullable=False)
+    event_type = db.Column(db.String(50), nullable=False)
+    age_range = db.Column(db.String(50), nullable=False)
 
 #comments table
 class Comments(db.Model):
