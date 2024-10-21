@@ -41,7 +41,7 @@ class Bookings(db.Model):
     def __repr__(self):
         return f"Booking: {self.quantity} tickets booked at {self.booked_date}"
     
-#I just created this events class so the foreign keys with booking would work
+#events table
 class Events(db.Model):
     __tablename__ = 'events'
 

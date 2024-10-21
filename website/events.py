@@ -31,8 +31,9 @@ def create():
      return redirect(url_for('event.show', id=new_event.id))
   
   return render_template('events/create.html', form=form) #original line: return render_template('events/create.html', form=create)
+  #need to change this once a new page is created that summarises the new event created by the user
 
-def get_event():
+def get_event(): #is this one still needed then?
   # creating the description of Brazil
   e_desc = """Event description. Lorem ipsum dolor sit amet,
     consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -46,3 +47,4 @@ def get_event():
   image_loc = '/static/img/pexels-maumascaro-788824.jpg'
   event = Event('UQ HATEFEST', e_desc,image_loc, 'PROHIBITION NIGHTCLUB')
   return event
+
