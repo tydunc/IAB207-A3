@@ -17,16 +17,23 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'User {self.first_name} {self.surname}'
 
-class Event:
-    def __init__(self, name, description, image_url, nightclub):
-        self.name = name
-        self.description = description
-        self.image = image_url
-        self.nightclub = nightclub
-        self.comments = list()
+class Events(db.Model):
+    __tablename__ = 'events'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
+    desc = db.Column(db.String(200), nullable=False)
+    image = db.Column(db.String(100), nullable=False) #Store the image file path
+    date = db.Column(db.Integer, nullable=False)       #Store the selected date of the event
+    month = db.Column(db.String(3), nullable=False)    #Store the selected month ('Jan','Feb')
+    nightclub = db.Column(db.String(50), nullable=False)
+    event_type = db.Column(db.String(50), nullable=False)
+    age_range = db.Column(db.String(50), nullable=False)
+    user_first_name = db.Column(db.Integer, db.ForeignKey('users.first_name'))
+    user_surname = db.Column(db.Integer, db.ForeignKey('users.surname'))
 
     def __repr__(self):
-        return f'Name: {self.name}, Currency: {self.nightclub}'
+        return f'<{self.title} by {self.first_name} {self.surname}>'
 
 class Comments(db.Model):
     __tablename__ = 'comments'
