@@ -31,9 +31,6 @@ class Events(db.Model):
     age_range = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __repr__(self):
-        return f'<{self.title} by {self.first_name} {self.surname}>'
-
 class Comments(db.Model):
     __tablename__ = 'comments'
     

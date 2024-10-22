@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
-
+{% from 'bootstrap5/form.html' import render_field %}
 {% block content %}
 
         <div class="container create">
-            <form method="post">
+            
+            
+            <form action="{{url_for('events.create')}}" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-7">
                         <h1 class="header-h1">Create / Update</h1>
                         <h1 class="header-h1">Your event</h1>
                         <p>Use this form to create your event!</p>
-                    </div>
-                    <div class="col-md-5 d-flex flex-column align-items-center">
-                        <label for="image" class="btn upld-btn">Upload main event photo <i class="fa-solid fa-arrow-up-from-bracket"></i></label>
-                        {{ form.image(style="visibility: hidden") }}
                     </div>
                 </div>
                 <br>
@@ -49,11 +47,18 @@
                         {{ form.age_range(class="form-select")}}
                     </h3>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ render_field(form.image) }}
+                    </div>
+                </div>
                 
                 <div class="row justify-content-center">
-                    <input type="submit" class="btn btn-submit">
+                    <input type="submit" class="btn btn-submit" name="submit" value="submit">
                 </div>
             </form>
+            
         </div>
     
 {% endblock %}
