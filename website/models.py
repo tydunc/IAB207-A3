@@ -29,8 +29,7 @@ class Events(db.Model):
     nightclub = db.Column(db.String(50), nullable=False)
     event_type = db.Column(db.String(50), nullable=False)
     age_range = db.Column(db.String(50), nullable=False)
-    user_first_name = db.Column(db.Integer, db.ForeignKey('users.first_name'))
-    user_surname = db.Column(db.Integer, db.ForeignKey('users.surname'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return f'<{self.title} by {self.first_name} {self.surname}>'

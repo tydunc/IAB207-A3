@@ -1,3 +1,7 @@
+#as of 5:24 22/10, this file is no longer necessary
+
+
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime

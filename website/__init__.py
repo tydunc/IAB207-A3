@@ -6,9 +6,6 @@ from flask_login import LoginManager
 # Initialize the database instance
 db = SQLAlchemy()
 
-# Import userdata (which likely contains user models or related functions)
-from userdata import User, Comments
-
 # Create a function that creates a web application
 def create_app():
   
@@ -34,6 +31,7 @@ def create_app():
     login_manager.init_app(app)
     
     # Define a user loader function that takes a user ID and returns a User object
+    from .models import User
     @login_manager.user_loader
     def load_user(user_id):
         return db.session.scalar(db.select(User).where(User.id == user_id))
