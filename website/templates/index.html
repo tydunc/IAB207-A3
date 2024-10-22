@@ -39,22 +39,24 @@
 
     <div class="row row-spacing">
 
+        {% for event in events %}
         <div class="col-md-3">
             <p class="card-date">Friday</p>
             <div class="card">
-                <a href="events/1">
-                    <img src="/static/img/pexels-jay-ybarra-1587808679-27383363.jpg" class="card-img-top" alt="...">
+                <a href="{{ url_for('events.show', id=event.id) }}">
+                    <img src="{{ event.image }}" class="result-img card-img-top" alt="...">
                     <span class="price-label">FREE</span>      
                 </a>
                 
                 <div class="card-body">
-                    <h5>Event title</h5>
-                    <p class="card-text">Lipsum nightclub</p>
-                    <span class="badge ev-rave">RAVE</span>
-                    <span class="badge age-un18">UNDER 18s</span>
+                    <h5>{{ event.title }}</h5>
+                    <p class="card-text">{{ event.nightclub }}</p>
+                    <span class="badge ev-{{ event.event_type }}"></span>
+                    <span class="badge age-{{ event.age_range }}">{{ event.age_range }}</span>
                 </div>
             </div>
         </div>
+        {% endfor %}
 
     </div>
 </div>

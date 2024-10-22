@@ -359,10 +359,15 @@ ul {
     font-style: italic;
 }
 
-.ev-rave { background: var(--main-blue)}
-.ev-party { background: var(--main-purple)}
+.result-img {
+    object-fit: cover;
+    height: 100%;
+    min-height: 15em;
+}
+
+.ev-rave { background: var(--main-blue);}
+.ev-theme { background: var(--main-purple)}
 .ev-dj { background: var(--main-pink)}
-.ev-other { background: var(--main-green)}
 
 .age-un18 { background: var(--main-yellow)}
 .age-ov18 { background: var(--main-red)}
