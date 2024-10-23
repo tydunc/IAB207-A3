@@ -6,6 +6,7 @@
             
             
             <form action="{{url_for('events.create')}}" method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
                 <div class="row">
                     <div class="col-md-7">
                         <h1 class="header-h1">Create / Update</h1>
