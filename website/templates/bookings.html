@@ -10,21 +10,26 @@
             </div>
             <div class="">
 
+                {% for booking in bookings %}
                 <div class="row modalEvent">
                     <button id="close"><i class="fa-regular fa-circle-xmark"></i></button>
                     <div class="col-md-4">
-                        <a href="events/1" class="aImg">
-                            <img src="/static/img/pexels-jay-ybarra-1587808679-27383363.jpg" />
+                        <a href="{{ url_for('events.show', id=booking[1].id) }}" class="aImg">
+                            <img src="{{ booking[1].image }}" />
                         </a>
                     </div>
                     <div class="col-md-5 eventsList">
-                        <span id="bookingID">Booking #10748763987 saved at 23:19 on 1/1/24</span>
-                        <h4>Event title</h4>
-                        <p>Lipsum Nightclub</p>
-                        <span class="badge ev-rave">RAVE</span>
-                        <span class="badge age-ov18">OVER 18s</span>
+                        <span id="bookingID">Booked at {{ booking[0].booked_date }}</span>
+                        <h4>{{ booking[1].title }}</h4>
+                        <p>{{ booking[1].nightclub }}</p>
+                        <span class="badge ev-{{ booking[1].event_type }}">RAVE</span>
+                        <span class="badge age-{{ booking[1].age_range }}">OVER 18s</span>
+                        <br><br>
+                        <span id="bookingID">{{ booking[0].quantity }} tickets at ${{ booking[0].price }} each</span>
+                        <p>Total: ${{ booking[0].quantity * booking[0].price }}</p>
                     </div>
                 </div>
+                {% endfor %}
 
                 <div class="row modalEvent">
                     <span id="edit">
@@ -44,21 +49,6 @@
                     </div>
                 </div>
 
-                <div class="row modalEvent">
-                    <button id="close"><i class="fa-regular fa-circle-xmark"></i></button>
-                    <div class="col-md-4">
-                        <a href="events/1" class="aImg">
-                            <img src="/static/img/pexels-jay-ybarra-1587808679-27383363.jpg" />
-                        </a>
-                    </div>
-                    <div class="col-md-5 eventsList">
-                        <span id="bookingID">Booking #10748763987 saved at 23:19 on 1/1/24</span>
-                        <h4>Event title</h4>
-                        <p>Lipsum Nightclub</p>
-                        <span class="badge ev-rave">RAVE</span>
-                        <span class="badge age-ov18">OVER 18s</span>
-                    </div>
-                </div>
             </div>
         </div>
     

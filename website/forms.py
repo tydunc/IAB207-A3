@@ -40,3 +40,8 @@ class CreateEventForm(FlaskForm):
     event_type = SelectField("Event Type", choices=[('theme', 'Themed Party'), ('rave', 'Rave'), ('dj', 'DJ Set')])
     age_range = SelectField("Age range", choices=[('all', 'All ages'), ('un18', 'Under 18s'), ('ov18', 'Over 18s')])
     submit = SubmitField("Create")
+
+#Booking event form
+class BookEvent(FlaskForm):
+    quantity = IntegerField("Quantity", validators=[InputRequired()])
+    submit = SubmitField("Checkout >")

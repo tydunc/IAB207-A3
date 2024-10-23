@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% from 'bootstrap5/form.html' import render_form %}
+
 {% block content %}
 
         <div class="event">
@@ -89,6 +91,7 @@
                                                             <span id="standard">2</span>
                                                             <button onclick="add('standard', 30)">+</button>    
                                                         </div>
+                                                        {{ render_form(form,"/events/{0}/book".format(event.id)) }}
                                                     </div>
                                                 </span>
 

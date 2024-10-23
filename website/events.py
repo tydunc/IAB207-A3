@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
-from .models import Events
-from .forms import CreateEventForm
+from .models import Events, Bookings
+from .forms import CreateEventForm, BookEvent
 from . import db
+from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 from flask_login import login_required, current_user
@@ -10,10 +11,11 @@ event_bp = Blueprint('events', __name__, url_prefix='/events')
 
 @event_bp.route('/<id>')
 def show(id):
+    bookingForm = BookEvent()
     event = db.session.scalar(db.select(Events).where(Events.id==id))
     if not event:
        abort(404)
-    return render_template('events/event.html', event=event)
+    return render_template('events/event.html', event=event, form=bookingForm)
 
 @event_bp.route('/create', methods=['GET', 'POST'])
 @login_required
@@ -55,3 +57,27 @@ def check_upload_file(form):
   # save the file and return the db upload path
   fp.save(upload_path)
   return db_upload_path
+
+#Booking event
+@event_bp.route('/<id>/book', methods=['GET', 'POST'])
+@login_required
+def book(id):
+  bookingForm = BookEvent()
+  if bookingForm.validate_on_submit():
+    #price feature needs to be added
+    booked_date = datetime.now()
+    price = 30
+    quantity = bookingForm.quantity.data
+    user_id = current_user.id
+    booking = Bookings(price=price, quantity=quantity, booked_date=booked_date, event_id=id, user_id=user_id)
+
+    db.session.add(booking)
+    db.session.commit()
+  return redirect(url_for('events.bookings', id=id))
+
+
+@event_bp.route('/bookings')
+@login_required
+def bookings():
+    booked = db.session.query(Bookings, Events).filter(Events.id == Bookings.event_id, Bookings.user_id == current_user.id).all()
+    return render_template('bookings.html', bookings=booked)

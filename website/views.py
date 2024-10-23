@@ -9,7 +9,3 @@ def index():
     background = 'bg-1'
     events = db.session.scalars(db.select(Events)).all()
     return render_template('index.html', background=background, events=events)
-
-@main_bp.route('/bookings')
-def bookings():
-    return render_template('bookings.html')
