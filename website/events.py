@@ -9,10 +9,22 @@ from flask_login import login_required, current_user
 
 event_bp = Blueprint('events', __name__, url_prefix='/events')
 
+#Ordinal function
+def ordinal(n: int):
+    if 11 <= (n % 100) <= 13:
+        suffix = 'th'
+    else:
+        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
+    return str(n) + suffix
+
 @event_bp.route('/<id>')
 def show(id):
     bookingForm = BookEvent()
     event = db.session.scalar(db.select(Events).where(Events.id==id))
+
+    #Convert date to ordinal
+    event.date = ordinal(event.date)
+    
     if not event:
        abort(404)
     return render_template('events/event.html', event=event, form=bookingForm)

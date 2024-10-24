@@ -142,10 +142,11 @@ footer .border-end, footer .border-start {
 .filter {
     font-family: "Lexend Exa", sans-serif;
     font-weight: 600; 
-    padding: 1.4em;
+    padding: 1.4em 1.4em 0 1.4em;
     color: var(--main-green);
     text-transform: uppercase;
     width: auto;
+    text-align: center;
 }
 .create .filter {
     width: 100%;
@@ -173,6 +174,21 @@ footer .border-end, footer .border-start {
     border: none;
     color: #f6f6f6;
     font-size: 0.8em;
+}
+
+.search-btn {
+    background: var(--main-orange);
+    border: none;
+    font-weight: bold;
+    padding: 0.4em 3em;
+    margin: 0.5em 2em 2em 2em;
+    border-radius: 0.3em;
+    transition: 0.07s ease-in-out;
+    box-shadow: #ffd27f 0em 0.3em 0em;
+}
+.search-btn:active {
+    box-shadow: #ffd27f 0em 0em 0em;
+    margin: 0.8em 2em 1.7em 2em;
 }
 
 .col-md-3 {
