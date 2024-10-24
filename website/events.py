@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
-from .models import Events, Bookings
+from .models import Events, Bookings, User
 from .forms import CreateEventForm, BookEvent
 from . import db
 from datetime import datetime
@@ -21,13 +21,13 @@ def ordinal(n: int):
 def show(id):
     bookingForm = BookEvent()
     event = db.session.scalar(db.select(Events).where(Events.id==id))
-
+    creator = db.session.scalar(db.select(User).where(User.id == event.user_id))
     #Convert date to ordinal
     event.date = ordinal(event.date)
     
     if not event:
        abort(404)
-    return render_template('events/event.html', event=event, form=bookingForm)
+    return render_template('events/event.html', event=event, form=bookingForm, creator=creator)
 
 @event_bp.route('/create', methods=['GET', 'POST'])
 @login_required

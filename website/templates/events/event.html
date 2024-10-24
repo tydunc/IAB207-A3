@@ -8,9 +8,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <span class="badge ev-party">Party</span>
-                        <h1>{{event.name}}</h1>
-                        <p>By Event Creator</p>
+                        <span class="badge ev-{{ event.event_type}}">{% if event.event_type == 'theme' %}Themed Party{% elif event.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>
+                        <h1>{{ event.name }}</h1>
+                        <p>By {{ creator.first_name }} {{ creator.surname }}</p>
                         <p>{{ event.date }} of {{ event.month }}, time</p>
                         <div class="bg-event" style="background-image: url({{event.image}})"></div>
                     </div>          
@@ -74,7 +74,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="row">
+                                        <form action="{{ url_for('events.book', id=event.id) }}" class="row" method="POST">
                                             <div class="col-md-6">
                                                 <span class="btn-ticket btn-purchase">
                                                     <div class="d-flex justify-content-between align-items-center">
@@ -84,14 +84,10 @@
                                                             <span class="float-end">45 left</span>
                                                         </span>
                                                     </div>
-                                                    <div class="d-flex">
-                                                        <p>Includes ronald mcdonald figurine, $10 drink voucher</p>
-                                                        <div id="counter">
-                                                            <button onclick="minus('standard', 30)">-</button>
-                                                            <span id="standard">2</span>
-                                                            <button onclick="add('standard', 30)">+</button>    
-                                                        </div>
-                                                        {{ render_form(form,"/events/{0}/book".format(event.id)) }}
+                                                    <div class="d-flex" id="counter">
+                                                        {{ form.hidden_tag() }}
+                                                        <p>Quantity:</p>
+                                                        {{ form.quantity(id="standard", value="1", min="0") }}
                                                     </div>
                                                 </span>
 
@@ -103,20 +99,20 @@
 
                                                         <span class="tkt-total" id="standardTotal">
                                                             <span class="tkt-admish">
-                                                                <span id="count">2</span> x Standard Admission
+                                                                <span id="count">1</span> x Tickets
                                                             </span>
-                                                            <span id="price">$60</span>
+                                                            <span id="price">$30</span>
                                                         </span>
                                                     </div>
                                                     
 
                                                     <div class="align-self-end">
-                                                        <h2>Total - $<span id="purchaseTotal">60</span></h2>
-                                                        <button class="btn btn-checkout">Checkout ></button>
+                                                        <h2>Total - $<span id="purchaseTotal">30</span></h2>
+                                                        {{ form.submit(class="btn btn-checkout") }}
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -198,50 +194,13 @@
 
 <!-- This script is just for the ticket summary to work, I added some placeholder values incase you don't use Javascript -->
 <script>
-
-    let purchase = document.getElementById("purchaseTotal");
-    
-    function add(ticket, price) {
-        i = document.getElementById(ticket);
-        x = document.getElementById(ticket + "Total");
-        a = x.querySelectorAll("#count");
-        b = x.querySelectorAll("#price");
-
-        count = Number(i.innerText) + 1;
-        if (count == 1) {
-            x.style.display = '';
-        }
-
-        total = count*price;
-        i.innerText = count;
-        a[0].innerText = count;
-        b[0].innerText = "$" + total;
-        
-        purchase.innerText = (Number(purchase.innerText) + price); 
-
-    }
-    function minus(ticket, price) {
-        i = document.getElementById(ticket);
-        x = document.getElementById(ticket + "Total");
-        a = x.querySelectorAll("#count");
-        b = x.querySelectorAll("#price");
-
-        count = Number(i.innerText) - 1;
-        total = count*price;
-        
-        if (count > 0) {
-            i.innerText = count;
-            a[0].innerText = count;
-            b[0].innerText = "$" + total;
-            
-            purchase.innerText = (Number(purchase.innerText) - price); 
-        } else if (count == 0) {
-            i.innerText = count;
-            x.style.display = 'none';
-
-            purchase.innerText = (Number(purchase.innerText) - price); 
-        }
-    }
+$("#standard").on("change", function(event){
+    let i = $("#standard").val();
+    let p = 30;
+    $("#count").text(i);
+    $("#price").text('$' + i*p);
+    $("#purchaseTotal").text(i*p);
+});
 </script>
 
 {% endblock %}
