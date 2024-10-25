@@ -11,7 +11,7 @@
                         <span class="badge ev-{{ event.event_type}}">{% if event.event_type == 'theme' %}Themed Party{% elif event.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>
                         <h1>{{ event.title }}</h1>
                         <p>By {{ creator.first_name }} {{ creator.surname }}</p>
-                        <p>{{ event.date }} of {{ event.month }}, time</p>
+                        <p>{{ event.date }} of {{ event.month }}, {{ event.time }}</p>
                         <div class="bg-event" style="background-image: url({{event.image}})"></div>
                     </div>          
                 </div>
@@ -44,7 +44,7 @@
                             <h3>TICKETS</h3>
                             {% if current_user.is_authenticated %}
                                 <span class="btn-ticket">
-                                    $30
+                                    ${{ event.price }}
                                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#purchasePopup">
                                         <span class="float-start">Tickets</span>
                                         <span class="float-end">45 left</span>
@@ -52,7 +52,7 @@
                                 </span>
                             {% else %}
                                 <span class="btn-ticket disabled">
-                                    $30
+                                    ${{ event.price }}
                                     <button type="button" class="btn">
                                         <span class="float-start">Tickets</span>
                                         <span class="float-end">45 left</span>
@@ -79,7 +79,7 @@
                                             <div class="col-md-6">
                                                 <span class="btn-ticket btn-purchase">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        $30
+                                                        ${{ event.price }}
                                                         <span class="btn">
                                                             <span class="float-start">Standard Admission</span>
                                                             <span class="float-end">45 left</span>
@@ -102,13 +102,13 @@
                                                             <span class="tkt-admish">
                                                                 <span id="count">1</span> x Tickets
                                                             </span>
-                                                            <span id="price">$30</span>
+                                                            <span id="price">${{ event.price }}</span>
                                                         </span>
                                                     </div>
                                                     
 
                                                     <div class="align-self-end">
-                                                        <h2>Total - $<span id="purchaseTotal">30</span></h2>
+                                                        <h2>Total - $<span id="purchaseTotal">{{ event.price }}</span></h2>
                                                         {{ form.submit(class="btn btn-checkout") }}
                                                     </div>
                                                 </div>
@@ -197,7 +197,7 @@
 <script>
 $("#standard").on("change", function(event){
     let i = $("#standard").val();
-    let p = 30;
+    let p = {{ event.price }};
     $("#count").text(i);
     $("#price").text('$' + i*p);
     $("#purchaseTotal").text(i*p);

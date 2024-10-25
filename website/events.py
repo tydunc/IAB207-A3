@@ -47,7 +47,11 @@ def create():
     age_range = create.age_range.data
     user_id = current_user.id
     
-    new_event = Events(title=title, desc=desc, image=image, date=date, month=month, nightclub=nightclub, event_type=event_type, age_range=age_range, user_id=user_id)
+    #Time and price
+    time = create.hour.data + ':' + create.minute.data + create.ampm.data
+    price = create.price.data
+
+    new_event = Events(title=title, desc=desc, image=image, date=date, month=month, nightclub=nightclub, event_type=event_type, age_range=age_range, user_id=user_id, time=time, price=price)
     db.session.add(new_event)
     db.session.commit()
     
@@ -78,7 +82,7 @@ def book(id):
   if bookingForm.validate_on_submit():
     #price feature needs to be added
     booked_date = datetime.now()
-    price = 30
+    price = db.session.scalar(db.select(Events.price).where(Events.id==id))
     quantity = bookingForm.quantity.data
     user_id = current_user.id
     booking = Bookings(price=price, quantity=quantity, booked_date=booked_date, event_id=id, user_id=user_id)

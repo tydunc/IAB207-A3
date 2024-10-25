@@ -31,6 +31,10 @@ class Events(db.Model):
     age_range = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+    #Time and price
+    time = db.Column(db.String(7), nullable=False)
+    price = db.Column(db.Float(2), nullable=False)
+
 class Comments(db.Model):
     __tablename__ = 'comments'
     

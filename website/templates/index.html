@@ -48,7 +48,7 @@
             <div class="card">
                 <a href="{{ url_for('events.show', id=event.id) }}">
                     <img src="{{ event.image }}" class="result-img card-img-top" alt="...">
-                    <span class="price-label">FREE</span>      
+                    <span class="price-label">${{ event.price }}</span>      
                 </a>
                 
                 <div class="card-body">
