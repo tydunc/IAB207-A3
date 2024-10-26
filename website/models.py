@@ -38,19 +38,6 @@ class Events(db.Model):
     time = db.Column(db.String(7), nullable=False)
     price = db.Column(db.Float(2), nullable=False)
 
-# Define the Comments model (table)
-class Comments(db.Model):
-    __tablename__ = 'comments'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    comment_text = db.Column(db.Text, nullable=False)
-    comment_date = db.Column(db.DateTime, default=datetime.now)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
-
-    def __repr__(self):
-        return f"<Comment {self.comment_text[:20]} by User {self.user_id}>"
-
 # Define the Bookings model (table)
 class Bookings(db.Model):
     __tablename__ = 'bookings'
@@ -73,14 +60,9 @@ class Review(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     review_text = db.Column(db.String(500), nullable=False)
     author = db.Column(db.String(100), nullable=False, default='Anonymous')
-    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # Linking to the User model
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)  # Linking to the Events model
 
     def __repr__(self):
         return f"<Review {self.id}>"
-
-# Create the database
-with app.app_context():
-    db.create_all()
-

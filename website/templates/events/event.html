@@ -9,6 +9,9 @@
                 <span class="badge ev-{{ event.event_type}}">
                     {% if event.event_type == 'theme' %}Themed Party{% elif event.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}
                 </span>
+                <span class="badge age-{{ event.age_range }}">
+                    {% if event.age_range == 'ov18' %}Over 18s{% elif event.age_range == 'un18' %}Under 18s{% else %}All ages{% endif %}
+                </span>
                 <h1>{{ event.title }}</h1>
                 <p>By {{ creator.first_name }} {{ creator.surname }}</p>
                 <p>{{ event.date }} of {{ event.month }}, {{ event.time }}</p>
@@ -29,7 +32,7 @@
                     <div class="col">
                         <h3>{{event.nightclub}}</h3>
                         <div class="d-flex">
-                            <img class="img-thumbnail" src="/static/img/proho.jpg">
+                            <img class="img-thumbnail" src="/static/img/{{ event.nightclub }}.jpg">
                             <div>
                                 <p>206 Wickham St, Fortitude Valley QLD 4006</p>
                                 <a href="btn">Venue Contact</a>
@@ -137,7 +140,7 @@
                     <h3>Share your experience</h3>
                     <form action="{{ url_for('events.add_review', id=event.id) }}" method="POST">
                         <p>Rating:</p>
-                        <div class="starsSelect">
+                        <div class="starSelect">
                             <input type="radio" id="1" name="rating" value="1">
                             <label for="1"><i class="fa fa-star"></i></label>
                             <input type="radio" id="2" name="rating" value="2">

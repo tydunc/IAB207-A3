@@ -42,7 +42,7 @@ def add_review(id):
         author = request.form.get('author', current_user.first_name + " " + current_user.surname)  # Set author to current user's name
         
         # Create new review object and associate it with the event and user
-        new_review = Review(rating=rating, review_text=review_text, author=author, user_id=current_user.id, event_id=id)
+        new_review = Review(rating=rating, review_text=review_text, author=author, user_id=current_user.id, event_id=id, date_posted=datetime.utcnow())
         db.session.add(new_review)
         db.session.commit()
         
