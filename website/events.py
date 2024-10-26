@@ -6,6 +6,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 from flask_login import login_required, current_user
+from PIL import Image
 
 event_bp = Blueprint('events', __name__, url_prefix='/events')
 
@@ -32,6 +33,7 @@ def show(id):
 @event_bp.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
+  action = url_for('events.create')
   print('Method type: ', request.method)
   create = CreateEventForm()
   if 'submit' in request.form:
@@ -58,7 +60,45 @@ def create():
     flash('Successfully created new event', 'success')
     # Always end with redirect when form is valid
     return redirect(url_for('events.create'))
-  return render_template('events/create.html', form=create)
+  return render_template('events/create.html', form=create, action=action)
+
+
+#Edit event
+@event_bp.route('/<id>/edit', methods=['GET','POST'])
+@login_required
+def edit(id):
+  action = url_for('events.edit', id=id)
+  event = db.session.query(Events).filter(Events.id == id).all()[0]
+  if event.user_id != current_user.id:
+     flash('Error: Logged in user is not the creator for this event')
+     return redirect(url_for('events.show', id=id))
+  else:
+    #set the time values
+    setattr(event, 'hour', event.time[:-5])
+    setattr(event, 'minute', event.time[-4:-2])
+    setattr(event, 'ampm', event.time[-2:])
+
+    #prefill the form
+    edit = CreateEventForm(request.form, obj=event)
+    image = event.image[12:]
+    edit.populate_obj(event)
+    #Submit the data
+    if 'submit' in request.form:
+       print('Method type: ', request.method)
+       event.title = edit.title.data
+       event.desc = edit.desc.data
+       event.date = edit.date.data
+       event.month = edit.month.data
+       event.nightclub = edit.nightclub.data
+       event.event_type = edit.event_type.data
+       event.age_range = edit.age_range.data
+       event.time = edit.hour.data + ':' + edit.minute.data + edit.ampm.data
+       event.price = edit.price.data
+
+       db.session.commit()
+       flash('Successfully updated event details')
+       return redirect(url_for('events.show', id=id))
+  return render_template('events/create.html', form=edit, image=image, action=action)
 
 def check_upload_file(form):
   # get file data from form  
@@ -95,5 +135,6 @@ def book(id):
 @event_bp.route('/bookings')
 @login_required
 def bookings():
+    user_events = db.session.query(Events).filter(Events.user_id == current_user.id)
     booked = db.session.query(Bookings, Events).filter(Events.id == Bookings.event_id, Bookings.user_id == current_user.id).all()
-    return render_template('bookings.html', bookings=booked)
+    return render_template('bookings.html', bookings=booked, user_events=user_events)

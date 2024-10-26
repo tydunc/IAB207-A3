@@ -9,6 +9,7 @@
                 <div class="row">
                     <div class="col">
                         <span class="badge ev-{{ event.event_type}}">{% if event.event_type == 'theme' %}Themed Party{% elif event.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>
+                        <span class="badge age-{{ event.age_range }}">{% if event.age_range == 'ov18' %}Over 18s{% elif event.age_range == 'un18' %}Under 18s{% else %}All ages{% endif %}</span>
                         <h1>{{ event.title }}</h1>
                         <p>By {{ creator.first_name }} {{ creator.surname }}</p>
                         <p>{{ event.date }} of {{ event.month }}, {{ event.time }}</p>

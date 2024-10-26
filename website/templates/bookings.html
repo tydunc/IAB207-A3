@@ -3,22 +3,49 @@
 {% block content %}
 
         <div class="container">
+            <!-- User's created events -->
+            {% if user_events %}
+            <div class="">
+                <div class="d-flex flex-column">
+                    <h1 class="modal-title" id="exampleModalLabel">My created events</h1>
+                </div>
+            </div>
+            <div>
+            {% for userEvent in user_events %}
+            <div class="row modalEvent">
+                <span id="edit">
+                    <a class="btn btn-edit" href="{{ url_for('events.edit', id=userEvent.id )}}">Edit event details</a>
+                </span>
+                <div class="col-md-4">
+                    <a href="{{ url_for('events.show', id=userEvent.id) }}" class="aImg">
+                        <img src="{{ userEvent.image }}" />
+                    </a>
+                </div>
+                <div class="col-md-5 eventsList">
+                    <span id="bookingID">{{ userEvent.date}} of {{ userEvent.month }} at {{ userEvent.time }}</span>
+                    <h4>{{ userEvent.title }}</h4>
+                    <p>{{ userEvent.nightclub }}</p>
+                    <span class="badge ev-{{ userEvent.event_type }}">{% if userEvent.event_type == 'theme' %}Themed Party{% elif userEvent.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>
+                    <span class="badge age-{{ userEvent.age_range }}">{% if userEvent.age_range == 'ov18' %}Over 18s{% elif userEvent.age_range == 'un18' %}Under 18s{% else %}All ages{% endif %}</span>
+                    <br><br>
+                    <span id="bookingID">45 tickets available</span>
+                    <p>Ticket price: ${{ userEvent.price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+            {% endif %}
+            <!-- User's saved events -->
             <div class="">
                 <div class="d-flex flex-column">
                     <h1 class="modal-title" id="exampleModalLabel">My saved events</h1>
                 </div>
             </div>
-            <div class="">
+            <div>
             {% if bookings %}
                 {% for booking in bookings %}
                     <div class="row modalEvent">
-                        {% if booking[1].user_id == current_user.id %}
-                        <span id="edit">
-                            <a class="btn btn-edit" href="">My event - edit</a>
-                        </span>
-                        {% else %}
-                            <button id="close"><i class="fa-regular fa-circle-xmark"></i></button>
-                        {% endif %}
+                        <button id="close"><i class="fa-regular fa-circle-xmark"></i></button>
                         <div class="col-md-4">
                             <a href="{{ url_for('events.show', id=booking[1].id) }}" class="aImg">
                                 <img src="{{ booking[1].image }}" />

@@ -549,7 +549,7 @@ ul {
     margin: 1em 20% 0 20%;
 }
 .btn-edit {
-    background: white;
+    background: var(--main-green);
     margin-top: 1em;
     font-weight: bold;
     display: block;
@@ -558,6 +558,7 @@ ul {
 .btn-edit:hover {
     color: black;
     background: var(--main-green);
+    box-shadow: #777 0em 0.4em 1em;
 }
 #close, #edit {
     float: right;

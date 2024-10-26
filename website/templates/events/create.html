@@ -5,13 +5,13 @@
         <div class="container create">
             
             
-            <form action="{{url_for('events.create')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ action }}" method="POST" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <div class="row">
                     <div class="col-md-7">
                         <h1 class="header-h1">Create / Update</h1>
                         <h1 class="header-h1">Your event</h1>
-                        <p>Use this form to create your event!</p>
+                        <p>Use this form to {% if image %}edit{% else %}create{% endif %} your event!</p>
                     </div>
                 </div>
                 <br>
@@ -67,8 +67,13 @@
 
                 <div class="row">
                     <div class="col-md-12">
+                        {% if image %}
+                        <p>Event image:</p>
+                        <img src="/static/img/{{ image }}" height="200px">
+                        {% else %}
                         <p>Choose event image</p>
                         {{ form.image(class="form-control") }}
+                        {% endif %}
                     </div>
                 </div>
                 
