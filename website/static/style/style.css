@@ -326,6 +326,11 @@ ul {
     font-size: 1.6em;
 }
 
+.delete {
+    background: var(--main-red);
+    color: white;
+}
+
 .social svg {
     font-size: 1.6em;
     width: 2em;
