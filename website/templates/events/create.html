@@ -79,6 +79,9 @@
                 
                 <div class="row justify-content-center">
                     <input type="submit" class="btn btn-submit" name="submit" value="submit">
+                    {% if image %}
+                    <input type="submit" class="btn btn-submit delete" name="delete" value="delete" onclick="return confirm('Are you sure you want to delete this event? Changes cannot be reversed.')">
+                    {% endif %}
                 </div>
             </form>
             

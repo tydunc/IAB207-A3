@@ -6,7 +6,6 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 from flask_login import login_required, current_user
-from PIL import Image
 
 event_bp = Blueprint('events', __name__, url_prefix='/events')
 
@@ -77,7 +76,7 @@ def create():
     
     flash('Successfully created new event', 'success')
     # Always end with redirect when form is valid
-    return redirect(url_for('events.create'))
+    return redirect(url_for('events.bookings'))
   return render_template('events/create.html', form=create, action=action)
 
 
@@ -86,7 +85,7 @@ def create():
 @login_required
 def edit(id):
   action = url_for('events.edit', id=id)
-  event = db.session.query(Events).filter(Events.id == id).all()[0]
+  event = db.session.query(Events).filter(Events.id == id).first()
   if event.user_id != current_user.id:
      flash('Error: Logged in user is not the creator for this event')
      return redirect(url_for('events.show', id=id))
@@ -116,6 +115,11 @@ def edit(id):
        db.session.commit()
        flash('Successfully updated event details')
        return redirect(url_for('events.show', id=id))
+    elif 'delete' in request.form:
+        db.session.delete(event)
+        db.session.commit()
+        flash(f'Event "{event.title}" has been deleted.')
+        return redirect(url_for('events.bookings'))
   return render_template('events/create.html', form=edit, image=image, action=action)
 
 def check_upload_file(form):
@@ -149,9 +153,21 @@ def book(id):
         db.session.commit()
     return redirect(url_for('events.bookings', id=id))
 
+# Showing all bookings and events a user has made
 @event_bp.route('/bookings')
 @login_required
 def bookings():
     user_events = db.session.query(Events).filter(Events.user_id == current_user.id)
     booked = db.session.query(Bookings, Events).filter(Events.id == Bookings.event_id, Bookings.user_id == current_user.id).all()
     return render_template('bookings.html', bookings=booked, user_events=user_events)
+
+# Deleting a booking
+@event_bp.route('/bookings/<id>/remove', methods=['GET', 'POST'])
+@login_required
+def removeBooking(id):
+   booking = db.session.query(Bookings).filter(Bookings.id == id).first()
+   event = db.session.query(Events).filter(Events.id == booking.event_id).first()
+   db.session.delete(booking)
+   db.session.commit()
+   flash(f'Booking for {event.title} has been removed')
+   return redirect(url_for('events.bookings'))
