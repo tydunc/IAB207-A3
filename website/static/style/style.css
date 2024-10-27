@@ -142,10 +142,11 @@ footer .border-end, footer .border-start {
 .filter {
     font-family: "Lexend Exa", sans-serif;
     font-weight: 600; 
-    padding: 1.4em;
+    padding: 1.4em 1.4em 0 1.4em;
     color: var(--main-green);
     text-transform: uppercase;
     width: auto;
+    text-align: center;
 }
 .create .filter {
     width: 100%;
@@ -173,6 +174,21 @@ footer .border-end, footer .border-start {
     border: none;
     color: #f6f6f6;
     font-size: 0.8em;
+}
+
+.search-btn {
+    background: var(--main-orange);
+    border: none;
+    font-weight: bold;
+    padding: 0.4em 3em;
+    margin: 0.5em 2em 2em 2em;
+    border-radius: 0.3em;
+    transition: 0.07s ease-in-out;
+    box-shadow: #ffd27f 0em 0.3em 0em;
+}
+.search-btn:active {
+    box-shadow: #ffd27f 0em 0em 0em;
+    margin: 0.8em 2em 1.7em 2em;
 }
 
 .col-md-3 {
@@ -231,6 +247,22 @@ footer .border-end, footer .border-start {
     width: 2em;
     height: 2em;
     padding: 2px;
+}
+
+.datetime select {
+    border-radius: 15px;
+    background-color: var(--main-grey);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23000000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+.datetime #time-format {
+    font-size: 0.7em;
+    text-transform: uppercase;
+}
+
+.create .input-group-text {
+    margin-bottom: 10px;
+    background: var(--main-orange);
+    border: none;
 }
 
 ul {
@@ -292,6 +324,11 @@ ul {
     margin: 2em 1em;
     padding: 0.7em 1.7em;
     font-size: 1.6em;
+}
+
+.delete {
+    background: var(--main-red);
+    color: white;
 }
 
 .social svg {
@@ -421,9 +458,10 @@ ul {
 
 .img-thumbnail {
     border: 3px black solid;
-    padding: 0;
+    padding: 3px;
     border-radius: 0;
     margin-right: 1em;
+    margin: 5px;
     height: fit-content !important;
     width: 40%;
 }
@@ -494,7 +532,7 @@ ul {
 }
 .aImg img {
     width: 100%;
-    height: 8em;
+    height: 10em;
     object-fit: cover;
     opacity: 0.6;
     transition: 200ms ease-in-out
@@ -516,7 +554,7 @@ ul {
     margin: 1em 20% 0 20%;
 }
 .btn-edit {
-    background: white;
+    background: var(--main-green);
     margin-top: 1em;
     font-weight: bold;
     display: block;
@@ -525,6 +563,7 @@ ul {
 .btn-edit:hover {
     color: black;
     background: var(--main-green);
+    box-shadow: #777 0em 0.4em 1em;
 }
 #close, #edit {
     float: right;
@@ -621,15 +660,7 @@ ul {
     align-items: center;
     margin: 1em;
 }
-#counter button {
-    width: 1.7em;
-    height: 1.7em;
-    padding: 0;
-    border-radius: 1em;
-    border: none;
-    z-index: 1;
-}
-#counter span {
+#counter input {
     height: 1.7em;
     display: flex;
     justify-content: center;
@@ -637,7 +668,9 @@ ul {
     width: 3.5em;
     background: var(--main-grey);
     color: black;
-    margin: 0 -0.85em;
+    border: none;
+    margin: 0 1em;
+    border-radius: 0.2em;
 }
 
 .summary {

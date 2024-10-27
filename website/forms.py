@@ -34,9 +34,21 @@ class CreateEventForm(FlaskForm):
         FileRequired(message = 'Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports png, jpg, JPG, PNG')
     ])
-    date = RadioField('Label', choices=[('1'),('2'),('3'),('4'),('5'),('6'),('7'),('8'),('9'),('10'),('11'),('12'),('13'),('14'),('15'),('16'),('17'),('18'),('19'),('20'),('21'),('22'),('23'),('24'),('25'),('26'),('27'),('28'),('29'),('30'),('31')])
-    month = SelectField('Month', choices=[('jan', 'Jan'), ('feb', 'Feb'), ('mar', 'Mar'), ('apr', 'Apr'), ('may', 'May'), ('jun', 'Jun'), ('jul', 'Jul'), ('aug', 'Aug'), ('sep', 'Sep'), ('oct', 'Oct'), ('nov', 'Nov'), ('dec', 'Dec')])
-    nightclub = SelectField("Nightclub", choices=[('proho', 'Prohibition'), ('met', 'The MET'), ('retro', 'Retros'), ('beat', 'The Beat Megaclub')])
+    date = RadioField('Label', choices=range(1,32), validators=[InputRequired()])
+    month = SelectField('Month', choices=[('Jan', 'Jan'), ('Feb', 'Feb'), ('Mar', 'Mar'), ('Apr', 'Apr'), ('May', 'May'), ('Jun', 'Jun'), ('Jul', 'Jul'), ('Aug', 'Aug'), ('Sep', 'Sep'), ('Oct', 'Oct'), ('Nov', 'Nov'), ('Dec', 'Dec')])
+    nightclub = SelectField("Nightclub", choices=[('Prohibition', 'Prohibition'), ('The MET', 'The MET'), ('Retros', 'Retros'), ('The Beat Megaclub', 'The Beat Megaclub')])
     event_type = SelectField("Event Type", choices=[('theme', 'Themed Party'), ('rave', 'Rave'), ('dj', 'DJ Set')])
     age_range = SelectField("Age range", choices=[('all', 'All ages'), ('un18', 'Under 18s'), ('ov18', 'Over 18s')])
+
+    #Time
+    hour = SelectField("hour", choices=range(1,13))
+    min = list(range(0,60))
+    minute = SelectField("minute", choices=['{:02d}'.format(i) for i in min])
+    ampm = SelectField("Time format", choices=['am', 'am', 'pm', 'pm'])
+    price = IntegerField("Price", validators=[InputRequired()])
     submit = SubmitField("Create")
+
+#Booking event form
+class BookEvent(FlaskForm):
+    quantity = IntegerField("Quantity", validators=[InputRequired()])
+    submit = SubmitField("Checkout >")

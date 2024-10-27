@@ -3,62 +3,72 @@
 {% block content %}
 
         <div class="container">
+            <!-- User's created events -->
+            {% if user_events %}
+            <div class="">
+                <div class="d-flex flex-column">
+                    <h1 class="modal-title" id="exampleModalLabel">My created events</h1>
+                </div>
+            </div>
+            <div>
+            {% for userEvent in user_events %}
+            <div class="row modalEvent">
+                <span id="edit">
+                    <a class="btn btn-edit" href="{{ url_for('events.edit', id=userEvent.id )}}">Edit event details</a>
+                </span>
+                <div class="col-md-4">
+                    <a href="{{ url_for('events.show', id=userEvent.id) }}" class="aImg">
+                        <img src="{{ userEvent.image }}" />
+                    </a>
+                </div>
+                <div class="col-md-5 eventsList">
+                    <span id="bookingID">{{ userEvent.date}} of {{ userEvent.month }} at {{ userEvent.time }}</span>
+                    <h4>{{ userEvent.title }}</h4>
+                    <p>{{ userEvent.nightclub }}</p>
+                    <span class="badge ev-{{ userEvent.event_type }}">{% if userEvent.event_type == 'theme' %}Themed Party{% elif userEvent.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>
+                    <span class="badge age-{{ userEvent.age_range }}">{% if userEvent.age_range == 'ov18' %}Over 18s{% elif userEvent.age_range == 'un18' %}Under 18s{% else %}All ages{% endif %}</span>
+                    <br><br>
+                    <span id="bookingID">45 tickets available</span>
+                    <p>Ticket price: ${{ userEvent.price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+            {% endif %}
+            <!-- User's saved events -->
             <div class="">
                 <div class="d-flex flex-column">
                     <h1 class="modal-title" id="exampleModalLabel">My saved events</h1>
                 </div>
             </div>
-            <div class="">
-
-                <div class="row modalEvent">
-                    <button id="close"><i class="fa-regular fa-circle-xmark"></i></button>
-                    <div class="col-md-4">
-                        <a href="events/1" class="aImg">
-                            <img src="/static/img/pexels-jay-ybarra-1587808679-27383363.jpg" />
-                        </a>
-                    </div>
-                    <div class="col-md-5 eventsList">
-                        <span id="bookingID">Booking #10748763987 saved at 23:19 on 1/1/24</span>
-                        <h4>Event title</h4>
-                        <p>Lipsum Nightclub</p>
-                        <span class="badge ev-rave">RAVE</span>
-                        <span class="badge age-ov18">OVER 18s</span>
-                    </div>
+            <div>
+            {% if bookings %}
+                {% for booking in bookings %}
+                    <form class="row modalEvent" action="{{ url_for('events.removeBooking', id=booking[0].id)}}">
+                        <button id="close" type="submit" onclick="return confirm('Are you sure you want to remove this booking? Changes cannot be reversed.')"><i class="fa-regular fa-circle-xmark"></i></button>
+                        <div class="col-md-4">
+                            <a href="{{ url_for('events.show', id=booking[1].id) }}" class="aImg">
+                                <img src="{{ booking[1].image }}" />
+                            </a>
+                        </div>
+                        <div class="col-md-5 eventsList">
+                            <span id="bookingID">Booked at {{ booking[0].booked_date }}</span>
+                            <h4>{{ booking[1].title }}</h4>
+                            <p>{{ booking[1].nightclub }}</p>
+                            <span class="badge ev-{{ booking[1].event_type }}">{% if booking[1].event_type == 'theme' %}Themed Party{% elif booking[1].event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>
+                            <span class="badge age-{{ booking[1].age_range }}">{% if booking[1].age_range == 'ov18' %}Over 18s{% elif booking[1].age_range == 'un18' %}Under 18s{% else %}All ages{% endif %}</span>
+                            <br><br>
+                            <span id="bookingID">{{ booking[0].quantity }} tickets at ${{ booking[0].price }} each</span>
+                            <p>Total: ${{ booking[0].quantity * booking[0].price }}</p>
+                        </div>
+                    </form>
+                {% endfor %}
+            {%else%}
+                <div class="h-50 d-flex align-items-center justify-content-center">
+                    <h4>No events saved! Events you book will be shown here.</h4>
                 </div>
+            {% endif %}
 
-                <div class="row modalEvent">
-                    <span id="edit">
-                        <a class="btn btn-edit" href="/events/create">My event - edit</a>
-                    </span>
-                    <div class="col-md-4">
-                        <a href="events/1" class="aImg">
-                            <img src="/static/img/pexels-maumascaro-788824.jpg" />
-                        </a>
-                    </div>
-                    <div class="col-md-5 eventsList">
-                        <span id="bookingID">Booking #10748763987 saved at 23:19 on 1/1/24</span>
-                        <h4>Event title</h4>
-                        <p>Lipsum Nightclub</p>
-                        <span class="badge ev-rave">RAVE</span>
-                        <span class="badge age-ov18">OVER 18s</span>
-                    </div>
-                </div>
-
-                <div class="row modalEvent">
-                    <button id="close"><i class="fa-regular fa-circle-xmark"></i></button>
-                    <div class="col-md-4">
-                        <a href="events/1" class="aImg">
-                            <img src="/static/img/pexels-jay-ybarra-1587808679-27383363.jpg" />
-                        </a>
-                    </div>
-                    <div class="col-md-5 eventsList">
-                        <span id="bookingID">Booking #10748763987 saved at 23:19 on 1/1/24</span>
-                        <h4>Event title</h4>
-                        <p>Lipsum Nightclub</p>
-                        <span class="badge ev-rave">RAVE</span>
-                        <span class="badge age-ov18">OVER 18s</span>
-                    </div>
-                </div>
             </div>
         </div>
     

@@ -6,29 +6,32 @@
     <h1 class="header-h1">Good times are</h1>
     <h1 class="header-h1">Waiting</h1>
 </div>
-<div class="d-flex justify-content-center align-items-center">
+<form action="/search" class="d-flex justify-content-center align-items-center flex-column">
     <h3 class="filter">Show me 
-        <select class="form-select" aria-label=".form-select">
-            <option selected>Everything</option>
-            <option value="1">Themed parties</option>
-            <option value="2">Raves</option>
-            <option value="3">DJ Sets</option>
+        <select class="form-select" name="event_type">
+            <option selected value="*">Everything</option>
+            <option value="theme">Themed parties</option>
+            <option value="rave">Raves</option>
+            <option value="dj">DJ Sets</option>
         </select>
         for
-        <select class="form-select" aria-label="">
-            <option selected>All ages</option>
-            <option value="1">Under 18s</option>                        
-            <option value="2">Over 18s</option>
+        <select class="form-select" name="age_range">
+            <option selected value="*">Any age group</option>
+            <option value="all">All ages</option>
+            <option value="un18">Under 18s</option>                        
+            <option value="ov18">Over 18s</option>
         </select>
-        in
-        <select class="form-select" aria-label="">
-            <option selected>Everywhere</option>
-            <option value="1">Brisbane</option>
-            <option value="2">Sydney</option>                        
-            <option value="3">Gold Coast</option>
+        at
+        <select class="form-select" name="nightclub">
+            <option selected value="*">Anywhere</option>
+            <option value="Prohibition">Prohibition</option>
+            <option value="The MET">The MET</option>                        
+            <option value="Retros">Retros</option>
+            <option value="The Beat Megaclub">The Beat Megaclub</option>
         </select>
     </h3>
-</div>
+    <button type="submit" class="search-btn">Search</button>
+</form>
 
 {% endblock %}
 
@@ -41,18 +44,18 @@
 
         {% for event in events %}
         <div class="col-md-3">
-            <p class="card-date">Friday</p>
+            <p class="card-date">{{event.date}} of {{ event.month }}</p>
             <div class="card">
                 <a href="{{ url_for('events.show', id=event.id) }}">
                     <img src="{{ event.image }}" class="result-img card-img-top" alt="...">
-                    <span class="price-label">FREE</span>      
+                    <span class="price-label">${{ event.price }}</span>      
                 </a>
                 
                 <div class="card-body">
                     <h5>{{ event.title }}</h5>
                     <p class="card-text">{{ event.nightclub }}</p>
-                    <span class="badge ev-{{ event.event_type }}"></span>
-                    <span class="badge age-{{ event.age_range }}">{{ event.age_range }}</span>
+                    <span class="badge ev-{{ event.event_type }}">{% if event.event_type == 'theme' %}Themed Party{% elif event.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>
+                    <span class="badge age-{{ event.age_range }}">{% if event.age_range == 'ov18' %}Over 18s{% elif event.age_range == 'un18' %}Under 18s{% else %}All ages{% endif %}</span>
                 </div>
             </div>
         </div>

@@ -1,244 +1,197 @@
 {% extends 'base.html' %}
-
+{% from 'bootstrap5/form.html' import render_form %}
 {% block content %}
 
-        <div class="event">
-            <div class="container">
+<div class="event">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <span class="badge ev-{{ event.event_type}}">
+                    {% if event.event_type == 'theme' %}Themed Party{% elif event.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}
+                </span>
+                <span class="badge age-{{ event.age_range }}">
+                    {% if event.age_range == 'ov18' %}Over 18s{% elif event.age_range == 'un18' %}Under 18s{% else %}All ages{% endif %}
+                </span>
+                <h1>{{ event.title }}</h1>
+                <p>By {{ creator.first_name }} {{ creator.surname }}</p>
+                <p>{{ event.date }} of {{ event.month }}, {{ event.time }}</p>
+                <div class="bg-event" style="background-image: url({{event.image}})"></div>
+            </div>          
+        </div>
+    </div>
+    <div class="border-top"></div>
+    <div class="container">
+        <div class="row row-spacing">
+            <div class="col-lg-8 border-end">
+                <h3>{{event.title}}</h3>
+                <h6>Limited availability</h6>
+                <p>{{event.desc}}<br><br></p>
+            </div>
+            <div class="col-lg-4">
                 <div class="row">
                     <div class="col">
-                        <span class="badge ev-party">Party</span>
-                        <h1>{{event.name}}</h1>
-                        <p>By Event Creator</p>
-                        <p>7pm - 8pm, Friday 1st of January</p>
-                        <div class="bg-event" style="background-image: url({{event.image}})"></div>
-                    </div>          
-                </div>
-            </div>
-            <div class="border-top"></div>
-            <div class="container">
-                <div class="row row-spacing">
-                    <div class="col-lg-8 border-end">
-                        <h3>{{event.name}}</h3>
-                        <h6>Limited availability</h6>
-                        <p>{{event.desc}}
-                            <br><br>
-                        </p>
+                        <h3>{{event.nightclub}}</h3>
+                        <div class="d-flex">
+                            <img class="img-thumbnail" src="/static/img/{{ event.nightclub }}.jpg">
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=yfvNM_opeJc">Venue Contact</a>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="row">
-                            <div class="col">
-                                <h3>{{event.nightclub}}</h3>
-                                <div class="d-flex">
-                                    <img class="img-thumbnail" src="/static/img/proho.jpg">
-                                    <div>
-                                        <p>206 Wickham St, Fortitude Valley QLD 4006</p>
-                                        <a href="btn">Venue Contact</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-top spacing"></div>
-                        <div class="row tickets">
-                            <h3>TICKETS</h3>
-                            {% if current_user.is_authenticated %}
-                                <span class="btn-ticket">
-                                    $30
-                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#purchasePopup">
-                                        <span class="float-start">Tickets</span>
-                                        <span class="float-end">45 left</span>
-                                    </button>
-                                </span>
-                            {% else %}
-                                <span class="btn-ticket disabled">
-                                    $30
-                                    <button type="button" class="btn">
-                                        <span class="float-start">Tickets</span>
-                                        <span class="float-end">45 left</span>
-                                    </button>
-                                </span>
-                                <p>Please login to purchase tickets</p>
-                            {% endif %}
-                        </div>
+                </div>
+                <div class="border-top spacing"></div>
+                <div class="row tickets">
+                    <h3>TICKETS</h3>
+                    {% if current_user.is_authenticated %}
+                        <span class="btn-ticket">
+                            ${{ event.price }}
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#purchasePopup">
+                                <span class="float-start">Tickets</span>
+                                <span class="float-end">45 left</span>
+                            </button>
+                        </span>
+                    {% else %}
+                        <span class="btn-ticket disabled">
+                            ${{ event.price }}
+                            <button type="button" class="btn">
+                                <span class="float-start">Tickets</span>
+                                <span class="float-end">45 left</span>
+                            </button>
+                        </span>
+                        <p>Please login to purchase tickets</p>
+                    {% endif %}
+                </div>
   
-                        <!-- Modal popup -->
-                        <div class="modal fade" id="purchasePopup" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="d-flex flex-column">
-                                            <p>Getting tickets for</p>
-                                            <h1 class="modal-title" id="exampleModalLabel">UQ HATEFEST</h1>
-                                        </div>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <span class="btn-ticket btn-purchase">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        $30
-                                                        <span class="btn">
-                                                            <span class="float-start">Standard Admission</span>
-                                                            <span class="float-end">45 left</span>
-                                                        </span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <p>Includes ronald mcdonald figurine, $10 drink voucher</p>
-                                                        <div id="counter">
-                                                            <button onclick="minus('standard', 30)">-</button>
-                                                            <span id="standard">2</span>
-                                                            <button onclick="add('standard', 30)">+</button>    
-                                                        </div>
-                                                    </div>
+                <!-- Modal popup -->
+                <div class="modal fade" id="purchasePopup" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="d-flex flex-column">
+                                    <p>Getting tickets for</p>
+                                    <h1 class="modal-title" id="exampleModalLabel">{{ event.title }}</h1>
+                                    <p>An event by {{ creator.first_name }} {{ creator.surname }}</p>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ url_for('events.book', id=event.id) }}" class="row" method="POST">
+                                    <div class="col-md-6">
+                                        <span class="btn-ticket btn-purchase">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                ${{ event.price }}
+                                                <span class="btn">
+                                                    <span class="float-start">Standard Admission</span>
+                                                    <span class="float-end">45 left</span>
                                                 </span>
-
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="summary">
-                                                    <div>
-                                                        <h2>Summary</h2>
-
-                                                        <span class="tkt-total" id="standardTotal">
-                                                            <span class="tkt-admish">
-                                                                <span id="count">2</span> x Standard Admission
-                                                            </span>
-                                                            <span id="price">$60</span>
-                                                        </span>
-                                                    </div>
-                                                    
-
-                                                    <div class="align-self-end">
-                                                        <h2>Total - $<span id="purchaseTotal">60</span></h2>
-                                                        <button class="btn btn-checkout">Checkout ></button>
-                                                    </div>
-                                                </div>
+                                            <div class="d-flex" id="counter">
+                                                {{ form.hidden_tag() }}
+                                                <p>Quantity:</p>
+                                                {{ form.quantity(id="standard", value="1", min="0") }}
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="summary">
+                                            <div>
+                                                <h2>Summary</h2>
+                                                <span class="tkt-total" id="standardTotal">
+                                                    <span class="tkt-admish">
+                                                        <span id="count">1</span> x Tickets
+                                                    </span>
+                                                    <span id="price">${{ event.price }}</span>
+                                                </span>
+                                            </div>
+                                            <div class="align-self-end">
+                                                <h2>Total - $<span id="purchaseTotal">{{ event.price }}</span></h2>
+                                                {{ form.submit(class="btn btn-checkout") }}
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="border-top spacing"></div>
-            <div class="container">
-                <div class="row row-spacing">
-                    <div class="col-md-6">
-                        <h3>REVIEWS - 
-
-                        <!-- Average reviews score -->
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i></h3>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-review"  type="button" data-bs-toggle="collapse" data-bs-target="#addReview" aria-expanded="false" aria-controls="addReview">Add yours </button>
-                    </div>
-                    <div class="row collapse" id="addReview">
-                        <div class="col-md-12">
-                            <h3>Share your experience</h3>
-                            <p>Rating:</p>
-
-                            <!-- Reviews selection system -->
-                            <p class="starSelect">
-                                <input type="radio" id="1" name="star">
-                                    <label for="1"><i class="fa-solid fa-star"></i></label>
-                                <input type="radio" id="2" name="star">
-                                    <label for="2"><i class="fa-solid fa-star"></i></label>
-                                <input type="radio" id="3" name="star">
-                                    <label for="3"><i class="fa-solid fa-star"></i></label>
-                                <input type="radio" id="4" name="star">
-                                    <label for="4"><i class="fa-solid fa-star"></i></label>
-                                <input type="radio" id="5" name="star">
-                                    <label for="5"><i class="fa-solid fa-star"></i></label>
-                            </p>
-                            <p>Review:</p>
-                            <textarea class="form-control" type="text" rows=3 placeholder="Type away..."></textarea>
-                            <button type="submit" class="btn btn-review">SUBMIT</button>
-                        </div>
-                        
-                    </div>
-                    <div class="col-md-12 reviews">
-                        
-                            <div class="card">
-                                <div class="card-header">
-                                    
-                                    <!-- Review stars -->
-                                    <!-- Solid is filled in, regular is just the outline-->
-                                    <p>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                    </p>
-                                </div>
-                                <div class="card-body">
-                                    <p>“This event was spectacular, amazing, the best, incredible and just all around fantastical”</p>
-                                    <h5>John Johnson</h5>
-                                </div>
-                                <div class="card-footer d-flex align-items-center">
-                                    <div class="d-flex flex-column">
-                                        <p>11/11/2011, 11:11pm</p>
-                                    </div>
-                                </div>    
-                            </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-<!-- This script is just for the ticket summary to work, I added some placeholder values incase you don't use Javascript -->
-<script>
+    <div class="border-top spacing"></div>
+    <div class="container">
+        <div class="row row-spacing">
+            <div class="col-md-6">
+                <h3>REVIEWS - 
+                <!-- Average reviews score -->
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i></h3>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-review" type="button" data-bs-toggle="collapse" data-bs-target="#addReview" aria-expanded="false" aria-controls="addReview">Add yours</button>
+            </div>
 
-    let purchase = document.getElementById("purchaseTotal");
-    
-    function add(ticket, price) {
-        i = document.getElementById(ticket);
-        x = document.getElementById(ticket + "Total");
-        a = x.querySelectorAll("#count");
-        b = x.querySelectorAll("#price");
-
-        count = Number(i.innerText) + 1;
-        if (count == 1) {
-            x.style.display = '';
-        }
-
-        total = count*price;
-        i.innerText = count;
-        a[0].innerText = count;
-        b[0].innerText = "$" + total;
-        
-        purchase.innerText = (Number(purchase.innerText) + price); 
-
-    }
-    function minus(ticket, price) {
-        i = document.getElementById(ticket);
-        x = document.getElementById(ticket + "Total");
-        a = x.querySelectorAll("#count");
-        b = x.querySelectorAll("#price");
-
-        count = Number(i.innerText) - 1;
-        total = count*price;
-        
-        if (count > 0) {
-            i.innerText = count;
-            a[0].innerText = count;
-            b[0].innerText = "$" + total;
+            <div class="row collapse" id="addReview">
+                <div class="col-md-12">
+                    <h3>Share your experience</h3>
+                    <form action="{{ url_for('events.add_review', id=event.id) }}" method="POST">
+                        <p>Rating:</p>
+                        <div class="starSelect">
+                            <input type="radio" id="1" name="rating" value="1">
+                            <label for="1"><i class="fa fa-star"></i></label>
+                            <input type="radio" id="2" name="rating" value="2">
+                            <label for="2"><i class="fa fa-star"></i></label>
+                            <input type="radio" id="3" name="rating" value="3">
+                            <label for="3"><i class="fa fa-star"></i></label>
+                            <input type="radio" id="4" name="rating" value="4">
+                            <label for="4"><i class="fa fa-star"></i></label>
+                            <input type="radio" id="5" name="rating" value="5">
+                            <label for="5"><i class="fa fa-star"></i></label>
+                        </div>
+                        <p>Review:</p>
+                        <textarea class="form-control" name="review" rows="3" placeholder="Your review"></textarea>
+                        <br>
+                        <button type="submit" class="btn btn-review">Submit</button>
+                    </form>
+                </div>
+            </div>
             
-            purchase.innerText = (Number(purchase.innerText) - price); 
-        } else if (count == 0) {
-            i.innerText = count;
-            x.style.display = 'none';
+            <!-- Reviews Section -->
+            <div class="col-md-12 reviews">
+                {% for review in reviews %}
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- Display star rating -->
+                            {% for i in range(1, 6) %}
+                                <i class="fa {% if i <= review.rating %}fa-solid{% else %}fa-regular{% endif %} fa-star"></i>
+                            {% endfor %}
+                        </div>
+                        <div class="card-body">
+                            <p>{{ review.review_text }}</p>
+                            <h5>{{ review.author }}</h5>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <div class="d-flex flex-column">
+                                <p>{{ review.date_posted.strftime('%d/%m/%Y, %I:%M%p') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 
-            purchase.innerText = (Number(purchase.innerText) - price); 
-        }
-    }
+<script>
+    // This script is just for the ticket summary to work
+    $("#standard").on("change", function(event){
+        let i = $("#standard").val();
+        let p = {{ event.price }};
+        $("#count").text(i);
+        $("#price").text('$' + i*p);
+        $("#purchaseTotal").text(i*p);
+    });
 </script>
 
 {% endblock %}
