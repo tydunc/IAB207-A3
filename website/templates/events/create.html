@@ -25,6 +25,12 @@
                             <span class="input-group-text">$</span>
                             {{ form.price(class="form-control", placeholder="Amount", step="0.01") }}
                         </div>
+                        <!--AVAILABLE TICKETS!-->
+                        <label for="event-tickets">Available Tickets</label>
+                        <div class="input-group">
+                            <span class="input-group-text">#</span>
+                            {{ form.tickets(class="form-control", placeholder="Number of Available Tickets", step="1") }}
+                        </div>
                          {{ form.nightclub(class="form-control") }}
                     </div>
                     <div class="col-md-5 d-flex flex-column align-items-center">
