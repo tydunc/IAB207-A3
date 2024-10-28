@@ -36,7 +36,6 @@ class CreateEventForm(FlaskForm):
     ])
     date = RadioField('Label', choices=range(1,32), validators=[InputRequired()])
     month = SelectField('Month', choices=[('Jan', 'Jan'), ('Feb', 'Feb'), ('Mar', 'Mar'), ('Apr', 'Apr'), ('May', 'May'), ('Jun', 'Jun'), ('Jul', 'Jul'), ('Aug', 'Aug'), ('Sep', 'Sep'), ('Oct', 'Oct'), ('Nov', 'Nov'), ('Dec', 'Dec')])
-    tickets = IntegerField("Tickets", validators=[InputRequired()])
     nightclub = SelectField("Nightclub", choices=[('Prohibition', 'Prohibition'), ('The MET', 'The MET'), ('Retros', 'Retros'), ('The Beat Megaclub', 'The Beat Megaclub')])
     event_type = SelectField("Event Type", choices=[('theme', 'Themed Party'), ('rave', 'Rave'), ('dj', 'DJ Set')])
     age_range = SelectField("Age range", choices=[('all', 'All ages'), ('un18', 'Under 18s'), ('ov18', 'Over 18s')])

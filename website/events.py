@@ -61,7 +61,6 @@ def create():
     image = db_file_path
     date = create.date.data
     month = create.month.data
-    tickets = create.tickets.data
     nightclub = create.nightclub.data
     event_type = create.event_type.data
     age_range = create.age_range.data
@@ -71,7 +70,7 @@ def create():
     time = create.hour.data + ':' + create.minute.data + create.ampm.data
     price = create.price.data
 
-    new_event = Events(title=title, desc=desc, image=image, date=date, month=month, tickets=tickets, nightclub=nightclub, event_type=event_type, age_range=age_range, user_id=user_id, time=time, price=price)
+    new_event = Events(title=title, desc=desc, image=image, date=date, month=month, nightclub=nightclub, event_type=event_type, age_range=age_range, user_id=user_id, time=time, price=price)
     db.session.add(new_event)
     db.session.commit()
     
@@ -107,7 +106,6 @@ def edit(id):
        event.desc = edit.desc.data
        event.date = edit.date.data
        event.month = edit.month.data
-       event.tickets = edit.tickets.data
        event.nightclub = edit.nightclub.data
        event.event_type = edit.event_type.data
        event.age_range = edit.age_range.data
