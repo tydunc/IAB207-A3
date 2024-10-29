@@ -91,7 +91,7 @@
                 <div class="col-md-6 d-flex border-start align-items-center">
                     <ul class="list-group list-group-flush">
                         {% if current_user.is_authenticated %}
-                        <li class="list-group-item"><a class="disabled" href="#">Logged in as {{current_user.first_name}}</a></li>
+                        <li class="list-group-item"><p style="margin:0; color: white">Logged in as {{current_user.first_name}}</p></li>
                         <li class="list-group-item"><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
                         {% else %}
                         <li class="list-group-item"><a href="{{ url_for('auth.login') }}">Log In</a></li>
