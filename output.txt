@@ -1,0 +1,70 @@
+Aika-chan-4 (4):
+      Update main.py
+      Update userdata.py
+      Update __init__.py
+      Update create.html
+
+Tyler Duncan (5):
+      Initial commit
+      Add files via upload
+      Delete projectfile directory
+      Add files via upload
+      Add files via upload
+
+jenmebs (13):
+      Events table
+      Initial changes to events.py
+      Added comments to changes done RE: events creation
+      Updated userdata and models py, and event html page
+      Minor changes to events mechanism
+      Merge branch 'main' of https://github.com/tydunc/IAB207-A3
+      Deleted newevent.html page
+      Added Tickets Available to database model and front-end pages
+      Revert "Added Tickets Available to database model and front-end pages"
+      Minor changes and tested event creation and booking
+      Minor testings to event creation and bookings
+      More testing - created events, booking and posted comments
+      More testing - event bookings
+
+rhiannonvanveen (6):
+      __init__.py
+      Add files via upload
+      __init__.py
+      models.py
+      events.py
+      Update event.html
+
+tydunc (32):
+      Updated templates with those from A2
+      Made events list it's own page, made existing forms.py work with existing user.html template and register button, modified user.html template to look a bit better
+      Created a bookings table
+      Got rid of the "socials" buttons in the footer
+      Comments
+      Merge branch 'main' of https://github.com/tydunc/IAB207-A3
+      more comments
+      Modified create page to work with flask forms
+      removed "comments.db" so there's only one database
+      Login, logout and register user functions now work with the database
+      Only logged in users can purchase tickets. Comments/reviews now better fit the assessment criteria
+      Revisited models, __init__. Removed placeholders from event and added an event to the database to preview.
+      Updated index page to show all events
+      Create page now works with database
+      Fixed a minor issue where the path for images was being saved incorrectly
+      Implented booking form system and modified bookings page to show bookings from the database.
+      Created the search function, changed events to show actual event time and date
+      Bits and bobs
+      Whoopsies forgot the event titles
+      Modified event pages to show new ticket price and time information
+      my intellect is incredible (made the nightclubs have their actual logos)
+      Added the edit event function
+      Merge branch 'main' of https://github.com/tydunc/IAB207-A3
+      fixing stuff
+      Event and booking deletion
+      got too silly
+      Merge branch 'main' of https://github.com/tydunc/IAB207-A3
+      Added ticket availability and sold out message if tickets = 0
+      slight change
+      Added event status
+      forgot something
+      forgot one more thing
+
