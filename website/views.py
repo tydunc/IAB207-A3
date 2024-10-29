@@ -11,7 +11,6 @@ def index():
     events = db.session.scalars(db.select(Events)).all()
     for e in events:
         e.inactive = inactive(e.date,e.month)
-        print(e.inactive)
         e.date = ordinal(e.date)
     return render_template('index.html', background=background, events=events)
 
@@ -27,6 +26,7 @@ def search():
     if search != '':
         events = db.session.scalars(db.select(Events).where(text(search[:-4]))).all()
         for e in events:
+            e.inactive = inactive(e.date,e.month)
             e.date = ordinal(e.date)
         return render_template('index.html', background=background, events=events)
     else:
