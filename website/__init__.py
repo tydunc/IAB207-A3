@@ -2,9 +2,27 @@ from flask import Flask
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from datetime import datetime
 
 # Initialize the database instance
 db = SQLAlchemy()
+
+#Some functions we'll use later
+def inactive(date, month):
+   months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+   curr = datetime.today().strftime('%Y-%m-%d')
+   eventDate = datetime.strptime(f'{date}/{months.index(month)+1}/{curr[:4]}', "%d/%m/%Y")
+   if datetime.now().date() > eventDate.date():
+      return True
+   else:
+      return False
+
+def ordinal(n: int):
+    if 11 <= (n % 100) <= 13:
+        suffix = 'th'
+    else:
+        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
+    return str(n) + suffix
 
 # Create a function that creates a web application
 def create_app():

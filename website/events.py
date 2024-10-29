@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
 from .models import Events, Bookings, User, Review
 from .forms import CreateEventForm, BookEvent
-from . import db
+from . import db, ordinal, inactive
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
@@ -9,28 +9,23 @@ from flask_login import login_required, current_user
 
 event_bp = Blueprint('events', __name__, url_prefix='/events')
 
-# Ordinal function
-def ordinal(n: int):
-    if 11 <= (n % 100) <= 13:
-        suffix = 'th'
-    else:
-        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
-    return str(n) + suffix
-
 @event_bp.route('/<id>')
 def show(id):
     bookingForm = BookEvent()
     event = db.session.scalar(db.select(Events).where(Events.id == id))
     creator = db.session.scalar(db.select(User).where(User.id == event.user_id))
+
+    #Get event status
+    status = inactive(event.date, event.month)
+    print(status)
     # Convert date to ordinal
     event.date = ordinal(event.date)
-
     # Fetch reviews for this event
     reviews = Review.query.filter_by(event_id=id).order_by(Review.date_posted.desc()).all()
     
     if not event:
         abort(404)
-    return render_template('events/event.html', event=event, form=bookingForm, creator=creator, reviews=reviews)
+    return render_template('events/event.html', event=event, form=bookingForm, creator=creator, reviews=reviews, inactive=status)
 
 @event_bp.route('/<id>/add_review', methods=['POST'])
 @login_required
@@ -164,6 +159,8 @@ def book(id):
 @login_required
 def bookings():
     user_events = db.session.query(Events).filter(Events.user_id == current_user.id)
+    for e in user_events:
+       e.inactive = inactive(e.date,e.month)
     booked = db.session.query(Bookings, Events).filter(Events.id == Bookings.event_id, Bookings.user_id == current_user.id).all()
     return render_template('bookings.html', bookings=booked, user_events=user_events)
 

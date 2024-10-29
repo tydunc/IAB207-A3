@@ -15,6 +15,9 @@
                 <h1>{{ event.title }}</h1>
                 <p>By {{ creator.first_name }} {{ creator.surname }}</p>
                 <p>{{ event.date }} of {{ event.month }}, {{ event.time }}</p>
+                {% if event.tickets == 0 or inactive %}
+                <p style="color: var(--main-red)">Event sold out or inactive</p>
+                {% endif %}
                 <div class="bg-event" style="background-image: url({{event.image}})"></div>
             </div>          
         </div>
@@ -44,7 +47,7 @@
                 <div class="border-top spacing"></div>
                 <div class="row tickets">
                     <h3>TICKETS</h3>
-                    {% if event.tickets == 0 %}
+                    {% if event.tickets == 0 or inactive %}
                         <span class="btn-ticket disabled">
                             ${{ event.price }}
                             <button type="button" class="btn">
@@ -52,7 +55,7 @@
                                 <span class="float-end">{{ event.tickets }} left</span>
                             </button>
                         </span>
-                        <p style="color: var(--main-red)">Event sold out</p>
+                        <p style="color: var(--main-red)">Event sold out or inactive</p>
                     {% elif current_user.is_authenticated %}
                     <span class="btn-ticket">
                         ${{ event.price }}

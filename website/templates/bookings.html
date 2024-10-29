@@ -14,7 +14,11 @@
             {% for userEvent in user_events %}
             <div class="row modalEvent">
                 <span id="edit">
+                    {% if userEvent.inactive %}
+                    <a class="btn btn-edit disabled" href="{{ url_for('events.edit', id=userEvent.id )}}">Event inactive</a>
+                    {% else %}
                     <a class="btn btn-edit" href="{{ url_for('events.edit', id=userEvent.id )}}">Edit event details</a>
+                    {% endif %}
                 </span>
                 <div class="col-md-4">
                     <a href="{{ url_for('events.show', id=userEvent.id) }}" class="aImg">
@@ -25,7 +29,9 @@
                     <span id="bookingID">{{ userEvent.date}} of {{ userEvent.month }} at {{ userEvent.time }}</span>
                     <h4>{{ userEvent.title }}</h4>
                     <p>{{ userEvent.nightclub }}</p>
-                    {% if userEvent.tickets == 0 %}
+                    {% if userEvent.inactive %}
+                    <p style="color: var(--main-red)">Event inactive</p>
+                    {% elif userEvent.tickets == 0 %}
                     <p style="color: var(--main-red)">Event sold out</p>
                     {% endif %}
                     <span class="badge ev-{{ userEvent.event_type }}">{% if userEvent.event_type == 'theme' %}Themed Party{% elif userEvent.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>

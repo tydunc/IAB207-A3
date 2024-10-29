@@ -342,19 +342,6 @@ ul {
     padding: 0;
 }
 
-.soldout {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    transform: rotate(45deg);
-    height: 10em;
-    top: 0;
-    width: 100%;
-    text-align: center;
-    color: var(--main-red);
-}
-
 .card {
     box-shadow: 0 0.5em 1em #cacaca;
     border: none;

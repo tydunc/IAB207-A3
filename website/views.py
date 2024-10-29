@@ -1,23 +1,17 @@
 from flask import Blueprint, render_template, request, url_for, redirect
 from .models import Events
-from . import db
+from . import db, ordinal, inactive
 from sqlalchemy import text
 
 main_bp = Blueprint('main', __name__)
-
-#Ordinal function
-def ordinal(n: int):
-    if 11 <= (n % 100) <= 13:
-        suffix = 'th'
-    else:
-        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
-    return str(n) + suffix
 
 @main_bp.route('/')
 def index():
     background = 'bg-1'
     events = db.session.scalars(db.select(Events)).all()
     for e in events:
+        e.inactive = inactive(e.date,e.month)
+        print(e.inactive)
         e.date = ordinal(e.date)
     return render_template('index.html', background=background, events=events)
 
