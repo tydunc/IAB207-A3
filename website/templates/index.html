@@ -48,7 +48,7 @@
             {% if event.tickets == 0 or event.inactive %}
             <p style="line-height: 1.1em; color: var(--main-red)">Event unavailable</p>
             {% else %}
-            <p style="line-height: 1.1em">{{event.tickets}} tickets available</p>
+            <p style="line-height: 1.1em; color: var(--main-green)">{{event.tickets}} tickets available</p>
             {% endif %}
             <div class="card">
                 <a href="{{ url_for('events.show', id=event.id) }}">
