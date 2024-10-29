@@ -37,6 +37,7 @@ class Events(db.Model):
     # Time and price
     time = db.Column(db.String(7), nullable=False)
     price = db.Column(db.Float(2), nullable=False)
+    tickets = db.Column(db.Integer, nullable=False)
 
 # Define the Bookings model (table)
 class Bookings(db.Model):

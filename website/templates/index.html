@@ -48,7 +48,10 @@
             <div class="card">
                 <a href="{{ url_for('events.show', id=event.id) }}">
                     <img src="{{ event.image }}" class="result-img card-img-top" alt="...">
-                    <span class="price-label">${{ event.price }}</span>      
+                    {% if event.tickets == 0 %}
+                    <h2 class="soldout">SOLD OUT</h2>
+                    {% endif %}
+                    <span class="price-label">${{ event.price }}</span>   
                 </a>
                 
                 <div class="card-body">

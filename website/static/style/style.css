@@ -342,6 +342,19 @@ ul {
     padding: 0;
 }
 
+.soldout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transform: rotate(45deg);
+    height: 10em;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--main-red);
+}
+
 .card {
     box-shadow: 0 0.5em 1em #cacaca;
     border: none;
@@ -494,6 +507,7 @@ ul {
     height: 2.5em;
     margin-bottom: 0.5em;
     transition: 200ms ease-in-out;
+    margin-left: 1em;
 }
 .btn-ticket button:hover {
     background-position: 99%;

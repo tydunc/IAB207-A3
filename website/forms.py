@@ -39,6 +39,7 @@ class CreateEventForm(FlaskForm):
     nightclub = SelectField("Nightclub", choices=[('Prohibition', 'Prohibition'), ('The MET', 'The MET'), ('Retros', 'Retros'), ('The Beat Megaclub', 'The Beat Megaclub')])
     event_type = SelectField("Event Type", choices=[('theme', 'Themed Party'), ('rave', 'Rave'), ('dj', 'DJ Set')])
     age_range = SelectField("Age range", choices=[('all', 'All ages'), ('un18', 'Under 18s'), ('ov18', 'Over 18s')])
+    tickets = IntegerField("Tickets available", validators=[InputRequired()])
 
     #Time
     hour = SelectField("hour", choices=range(1,13))

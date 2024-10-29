@@ -65,12 +65,13 @@ def create():
     event_type = create.event_type.data
     age_range = create.age_range.data
     user_id = current_user.id
+    tickets = create.tickets.data
     
     #Time and price
     time = create.hour.data + ':' + create.minute.data + create.ampm.data
     price = create.price.data
 
-    new_event = Events(title=title, desc=desc, image=image, date=date, month=month, nightclub=nightclub, event_type=event_type, age_range=age_range, user_id=user_id, time=time, price=price)
+    new_event = Events(title=title, desc=desc, image=image, date=date, month=month, nightclub=nightclub, event_type=event_type, age_range=age_range, user_id=user_id, time=time, price=price, tickets=tickets)
     db.session.add(new_event)
     db.session.commit()
     
@@ -111,6 +112,7 @@ def edit(id):
        event.age_range = edit.age_range.data
        event.time = edit.hour.data + ':' + edit.minute.data + edit.ampm.data
        event.price = edit.price.data
+       event.tickets= edit.tickets.data
 
        db.session.commit()
        flash('Successfully updated event details')
@@ -140,14 +142,18 @@ def check_upload_file(form):
 @event_bp.route('/<id>/book', methods=['GET', 'POST'])
 @login_required
 def book(id):
+    event = db.session.query(Events).filter(Events.id == id).first()
     bookingForm = BookEvent()
     if bookingForm.validate_on_submit():
         # price feature needs to be added
         booked_date = datetime.now()
-        price = db.session.scalar(db.select(Events.price).where(Events.id == id))
+        price = event.price
         quantity = bookingForm.quantity.data
         user_id = current_user.id
         booking = Bookings(price=price, quantity=quantity, booked_date=booked_date, event_id=id, user_id=user_id)
+        
+        #Update ticket count
+        event.tickets -= quantity
 
         db.session.add(booking)
         db.session.commit()
@@ -167,6 +173,10 @@ def bookings():
 def removeBooking(id):
    booking = db.session.query(Bookings).filter(Bookings.id == id).first()
    event = db.session.query(Events).filter(Events.id == booking.event_id).first()
+
+   #update ticket count (those tickets are now available)
+   event.tickets += booking.quantity
+
    db.session.delete(booking)
    db.session.commit()
    flash(f'Booking for {event.title} has been removed')

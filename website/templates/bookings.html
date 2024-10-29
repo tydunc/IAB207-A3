@@ -25,10 +25,13 @@
                     <span id="bookingID">{{ userEvent.date}} of {{ userEvent.month }} at {{ userEvent.time }}</span>
                     <h4>{{ userEvent.title }}</h4>
                     <p>{{ userEvent.nightclub }}</p>
+                    {% if userEvent.tickets == 0 %}
+                    <p style="color: var(--main-red)">Event sold out</p>
+                    {% endif %}
                     <span class="badge ev-{{ userEvent.event_type }}">{% if userEvent.event_type == 'theme' %}Themed Party{% elif userEvent.event_type == 'rave' %}Rave{% else %}DJ Set{% endif %}</span>
                     <span class="badge age-{{ userEvent.age_range }}">{% if userEvent.age_range == 'ov18' %}Over 18s{% elif userEvent.age_range == 'un18' %}Under 18s{% else %}All ages{% endif %}</span>
                     <br><br>
-                    <span id="bookingID">45 tickets available</span>
+                    <span id="bookingID">{{ userEvent.tickets}} tickets available</span>
                     <p>Ticket price: ${{ userEvent.price }}</p>
                 </div>
             </div>

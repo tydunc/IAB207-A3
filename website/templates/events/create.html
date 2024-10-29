@@ -20,12 +20,21 @@
                         {{ form.title(class="form-control form-control-lg", placeholder="Event title") }}
                         {{ form.desc(class="form-control flex-fill", placeholder="Description...") }}
                         <!--PRICE!-->
-                        <label for="event-price">Price</label>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            {{ form.price(class="form-control", placeholder="Amount", step="0.01") }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="price">Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    {{ form.price(class="form-control", placeholder="Amount", step="0.01", min=0) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tickets">Tickets available</label>
+                                {{ form.tickets(class="form-control", placeholder="Amount", min=0)}}
+                            </div>
                         </div>
-                         {{ form.nightclub(class="form-control") }}
+                        <label for="nightclub">Nightclub</label>
+                        {{ form.nightclub(class="form-control") }}
                     </div>
                     <div class="col-md-5 d-flex flex-column align-items-center">
                         <p>Select date</p>
