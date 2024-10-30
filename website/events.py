@@ -17,15 +17,19 @@ def show(id):
 
     #Get event status
     status = inactive(event.date, event.month)
-    print(status)
     # Convert date to ordinal
     event.date = ordinal(event.date)
     # Fetch reviews for this event
     reviews = Review.query.filter_by(event_id=id).order_by(Review.date_posted.desc()).all()
-    
+    sum = 0
+    avg = 0
+    if reviews:
+        for i in reviews:
+           sum += i.rating
+        avg = round((sum / len(reviews))*2)/2
     if not event:
         abort(404)
-    return render_template('events/event.html', event=event, form=bookingForm, creator=creator, reviews=reviews, inactive=status)
+    return render_template('events/event.html', event=event, form=bookingForm, creator=creator, reviews=reviews, inactive=status, reviewAvg=avg )
 
 @event_bp.route('/<id>/add_review', methods=['POST'])
 @login_required
